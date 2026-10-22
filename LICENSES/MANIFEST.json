@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "scope": "license notices and accompanying original composition source only",
+  "self_excluded": true,
+  "files": [
+    {
+      "path": "LICENSE",
+      "bytes": 11560,
+      "sha256": "3DDF9BE5C28FE27DAD143A5DC76EEA25222AD1DD68934A047064E56ED2FA40C5"
+    },
+    {
+      "path": "LICENSES/Assets/kenney_city-kit-industrial_2.0-CC0.txt",
+      "bytes": 708,
+      "sha256": "60A8C5C31191256EC9779DC18745DEA6D69C46F4B29703459CE064C1765A59EA"
+    },
+    {
+      "path": "LICENSES/Assets/kenney_modular-buildings-CC0.txt",
+      "bytes": 720,
+      "sha256": "84002607F647B608C2861D8413BD9136A36D4063D74BF1AF79347E3A012ABEB5"
+    },
+    {
+      "path": "LICENSES/Assets/kenney_nature-kit-CC0.txt",
+      "bytes": 611,
+      "sha256": "CB96B75E3560AC78D7A53CE6F083F4CDB5C53FAEA6141B62D63458DCFE1E4B9D"
+    },
+    {
+      "path": "LICENSES/Assets/kenney_train-kit-CC0.txt",
+      "bytes": 762,
+      "sha256": "8AD3A0453DC1416D54E9AF692DAFE875A24069D577FE64EDB193D3C8D868881A"
+    },
+    {
+      "path": "LICENSES/Assets/kenney_ui-pack-CC0.txt",
+      "bytes": 565,
+      "sha256": "69F7EAA5E05913B4D09CF5848F75390B5C3C9A409EF8555777803D9CA0C171FB"
+    },
+    {
+      "path": "LICENSES/Audio/compose_original_music.py",
+      "bytes": 17560,
+      "sha256": "0DA876CC6A7A455C2E83518D150E8F2AF5C6CD0A56DB59258946A1F0B735DEDD"
+    },
+    {
+      "path": "LICENSES/Audio/kenney_interface-sounds-CC0.txt",
+      "bytes": 574,
+      "sha256": "F7966C773BBED0ECA6A9C75081C44A178B38EAE112724DBB5FDFBD4192D118A9"
+    },
+    {
+      "path": "LICENSES/Audio/kenney_rpg-audio-CC0.txt",
+      "bytes": 478,
+      "sha256": "5735DFD72CB64CBBCEDA4EBC00C380C41CA680EDB82FF153AA7C9AB97614C539"
+    },
+    {
+      "path": "LICENSES/Audio/ORIGINAL-MUSIC-NOTICE.txt",
+      "bytes": 522,
+      "sha256": "E397335E542F20AE5983F475A33988FAE77C4756C5A62003D400C0ADA8C36319"
+    },
+    {
+      "path": "LICENSES/INDEX.txt",
+      "bytes": 4073,
+      "sha256": "F2E1BDC3B9E4BB06CB406567DFAD6BF3C23B40F3135DD11E29CAE5F6447A8BC0"
+    },
+    {
+      "path": "LICENSES/ThirdParty/GODOT-4.5.1-AUTHORS.md",
+      "bytes": 10740,
+      "sha256": "6CC644B01583B74F5FFDAF5D84994CC611CA2368F20EB7AC69C870E035C24EA2"
+    },
+    {
+      "path": "LICENSES/ThirdParty/GODOT-4.5.1-COPYRIGHT.txt",
+      "bytes": 99559,
+      "sha256": "DDFBF4FC1A00938393D35C77432A7ACA91FAC216C0ACE548288E036163D72255"
+    },
+    {
+      "path": "LICENSES/ThirdParty/GODOT-4.5.1-LICENSE.txt",
+      "bytes": 1169,
+      "sha256": "0CC27400B8DA8C06BB35350422C14715647CD2632C138921FD49CAA6610A1EF6"
+    },
+    {
+      "path": "LICENSES/ThirdParty/NOTO-CJK-OFL-1.1.txt",
+      "bytes": 4393,
+      "sha256": "88F117575237307BDD86A17EF15E21790FC9A662FE4DFB103CA1CA077F0D9982"
+    },
+    {
+      "path": "LICENSES/ThirdParty/NOTO-CJK-SC-NOTICE.txt",
+      "bytes": 583,
+      "sha256": "873F5FEE6C7C80484FB1CA2607B2F1E00BDA165058A012375A28DA9137C6269E"
+    },
+    {
+      "path": "LICENSES/ThirdParty/PLAY-GAMES-MIT.txt",
+      "bytes": 1101,
+      "sha256": "6BE9584BA2233FB74D12ECB61B23FBB0BE195F028181AED06C758244ADC51E80"
+    },
+    {
+      "path": "LICENSES/ThirdParty/POING-ADMOB-MIT.txt",
+      "bytes": 1099,
+      "sha256": "B3CC06EEAE33B6C592385F798CED5D6ED637F7E1467510227495BE4DEE0947EF"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 1550,
+      "sha256": "AB91E084A6B3BC37F12579BFFFEC17979F0CF43ECBE8E37751E43FBC616A2D63"
+    }
+  ]
+}

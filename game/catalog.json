@@ -1,0 +1,188 @@
+{
+  "schema": 1,
+  "achievements": [
+    {
+      "key": "first_dispatch",
+      "title": "A Lantern Lit",
+      "description": "Complete your first ordered delivery.",
+      "metric": "clears",
+      "target": 1,
+      "icon": "marketing/achievements/first_dispatch.png"
+    },
+    {
+      "key": "full_consist",
+      "title": "A Proper Little Train",
+      "description": "Deliver a manifest containing at least three wagons.",
+      "metric": "largest_manifest",
+      "target": 3,
+      "icon": "marketing/achievements/full_consist.png"
+    },
+    {
+      "key": "pine_certified",
+      "title": "Pine Junction Keeper",
+      "description": "Complete all eight Pine Junction yards.",
+      "metric": "district_0",
+      "target": 8,
+      "icon": "marketing/achievements/pine_certified.png"
+    },
+    {
+      "key": "orchard_certified",
+      "title": "Orchard Branch Keeper",
+      "description": "Complete all eight Orchard Branch yards.",
+      "metric": "district_1",
+      "target": 8,
+      "icon": "marketing/achievements/orchard_certified.png"
+    },
+    {
+      "key": "canal_certified",
+      "title": "Canal Works Keeper",
+      "description": "Complete all eight Canal Works yards.",
+      "metric": "district_2",
+      "target": 8,
+      "icon": "marketing/achievements/canal_certified.png"
+    },
+    {
+      "key": "quarry_certified",
+      "title": "Quarry Loop Keeper",
+      "description": "Complete all eight Quarry Loop yards.",
+      "metric": "district_3",
+      "target": 8,
+      "icon": "marketing/achievements/quarry_certified.png"
+    },
+    {
+      "key": "midnight_certified",
+      "title": "Midnight Crossing Keeper",
+      "description": "Complete all eight Midnight Crossing yards.",
+      "metric": "district_4",
+      "target": 8,
+      "icon": "marketing/achievements/midnight_certified.png"
+    },
+    {
+      "key": "grand_certified",
+      "title": "Grand Dispatcher",
+      "description": "Complete all eight Grand Dispatch yards.",
+      "metric": "district_5",
+      "target": 8,
+      "icon": "marketing/achievements/grand_certified.png"
+    },
+    {
+      "key": "clean_first",
+      "title": "Polished Brass",
+      "description": "Earn three mastery stars in one yard without a route hint.",
+      "metric": "perfect",
+      "target": 1,
+      "icon": "marketing/achievements/clean_first.png"
+    },
+    {
+      "key": "clean_five",
+      "title": "Five Bright Signals",
+      "description": "Earn three mastery stars in five different yards.",
+      "metric": "perfect",
+      "target": 5,
+      "icon": "marketing/achievements/clean_five.png"
+    },
+    {
+      "key": "clean_twenty",
+      "title": "The Golden Timetable",
+      "description": "Earn three mastery stars in twenty different yards.",
+      "metric": "perfect",
+      "target": 20,
+      "icon": "marketing/achievements/clean_twenty.png"
+    },
+    {
+      "key": "cargo_25",
+      "title": "Freight Friend",
+      "description": "Deliver 25 wagons.",
+      "metric": "cargo_total",
+      "target": 25,
+      "icon": "marketing/achievements/cargo_25.png"
+    },
+    {
+      "key": "cargo_100",
+      "title": "Valley Supplier",
+      "description": "Deliver 100 wagons.",
+      "metric": "cargo_total",
+      "target": 100,
+      "icon": "marketing/achievements/cargo_100.png"
+    },
+    {
+      "key": "dispatch_25",
+      "title": "Reliable Rails",
+      "description": "Complete 25 dispatches.",
+      "metric": "clears",
+      "target": 25,
+      "icon": "marketing/achievements/dispatch_25.png"
+    },
+    {
+      "key": "dispatch_100",
+      "title": "Railway Regular",
+      "description": "Complete 100 dispatches.",
+      "metric": "clears",
+      "target": 100,
+      "icon": "marketing/achievements/dispatch_100.png"
+    },
+    {
+      "key": "daily_first",
+      "title": "Morning Papers",
+      "description": "Complete one Daily Dispatch.",
+      "metric": "daily_clears",
+      "target": 1,
+      "icon": "marketing/achievements/daily_first.png"
+    },
+    {
+      "key": "daily_seven",
+      "title": "Seven Days of Freight",
+      "description": "Complete Daily Dispatches on seven different dates.",
+      "metric": "daily_clears",
+      "target": 7,
+      "icon": "marketing/achievements/daily_seven.png"
+    },
+    {
+      "key": "level_five",
+      "title": "Lantern Warden",
+      "description": "Reach dispatcher level 5.",
+      "metric": "level",
+      "target": 5,
+      "icon": "marketing/achievements/level_five.png"
+    },
+    {
+      "key": "level_ten",
+      "title": "Valley Steward",
+      "description": "Reach dispatcher level 10.",
+      "metric": "level",
+      "target": 10,
+      "icon": "marketing/achievements/level_ten.png"
+    },
+    {
+      "key": "all_yards",
+      "title": "Every Light Is Home",
+      "description": "Complete all 48 authored campaign yards.",
+      "metric": "campaign_cleared",
+      "target": 48,
+      "icon": "marketing/achievements/all_yards.png"
+    }
+  ],
+  "leaderboards": [
+    {
+      "key": "campaign_stars",
+      "title": "Lantern Mastery",
+      "description": "Highest total of unassisted campaign mastery stars.",
+      "metric": "campaign_stars",
+      "icon": "marketing/leaderboards/campaign_stars.png"
+    },
+    {
+      "key": "dispatches",
+      "title": "Valley Dispatches",
+      "description": "Total genuine completed dispatches.",
+      "metric": "clears",
+      "icon": "marketing/leaderboards/dispatches.png"
+    },
+    {
+      "key": "dispatcher_xp",
+      "title": "Dispatcher Experience",
+      "description": "Lifetime dispatcher experience earned through play.",
+      "metric": "xp",
+      "icon": "marketing/leaderboards/dispatcher_xp.png"
+    }
+  ]
+}
