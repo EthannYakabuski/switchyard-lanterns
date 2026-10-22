@@ -10,16 +10,15 @@ config_version=5
 
 [application]
 
-boot_splash/bg_color=Color(0.090196, 0.160784, 0.211765, 1)
-boot_splash/image="res://marketing/branding/app_icon.png"
-boot_splash/fullsize=false
-
 config/name="Switchyard Lanterns"
 run/main_scene="res://scenes/main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SwitchyardLanterns"
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.5", "GL Compatibility")
+boot_splash/bg_color=Color(0.090196, 0.160784, 0.211765, 1)
+boot_splash/fullsize=false
+boot_splash/image="res://marketing/branding/app_icon.png"
 config/icon="res://marketing/branding/app_icon.png"
 
 [autoload]
