@@ -61,7 +61,7 @@ jobs:
           for script in "${game_tests[@]}"; do
             log="/tmp/game-$(basename "$script").log"
             test_data="$(mktemp -d "$RUNNER_TEMP/godot-game.XXXXXX")"
-            XDG_DATA_HOME="$test_data" timeout 120s godot --headless --path . --script "$script" -- --qa-isolated 2>&1 | tee "$log"
+            XDG_DATA_HOME="$test_data" timeout 120s godot --headless --verbose --path . --script "$script" -- --qa-isolated 2>&1 | tee "$log"
             if grep -Eq 'SCRIPT ERROR|Parse Error|ERROR:|Assertion failed|resources still in use|ObjectDB instances leaked' "$log"; then
               exit 1
             fi
