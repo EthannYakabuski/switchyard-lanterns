@@ -40,6 +40,22 @@ func require(value: bool,text: String) -> void:
 	checks+=1
 	if not value:failures+=1;push_error("Assertion failed: "+text)
 
+func _dispose_app(scene: Control) -> void:
+	# Linux verbose diagnostics identified owned coupling/arrival Ogg and pine
+	# WAV playbacks still fading in AudioServer after fast frame-only teardown.
+	# Quiesce this fixture, release streams while its tree remains alive, and
+	# preserve a bounded amount of real mixer time before deleting the owner.
+	scene.set_process(false)
+	scene._shutdown()
+	var drain_seconds: float=clampf(AudioServer.get_time_to_next_mix()*3.0,0.1,0.25)
+	var deadline_us: int=Time.get_ticks_usec()+int(drain_seconds*1000000.0)
+	while Time.get_ticks_usec()<deadline_us:
+		await process_frame
+	await process_frame
+	scene.queue_free()
+	await process_frame
+	await process_frame
+
 func run() -> void:
 	var actual:=root.get_node_or_null("Services")
 	if actual!=null:root.remove_child(actual);actual.queue_free()
@@ -103,7 +119,7 @@ func run() -> void:
 	app._start_board(1,false);app.model.points=app.model.board.solution.duplicate();app._advance();app.yard.motion=false;app._settle();app._back()
 	require(app.scene_page=="home" and not app.profile.data.draft.is_empty(),"Back preserves actual paused route")
 	var draft: Dictionary=app.profile.data.draft.duplicate(true)
-	app.queue_free();await process_frame;await process_frame
+	await _dispose_app(app)
 	app=MainScene.instantiate();root.add_child(app);await process_frame;await process_frame
 	require(int(app.profile.data.clears)==1,"cold UI profile retains once-only award")
 	app._continue_route();await process_frame
@@ -126,7 +142,7 @@ func run() -> void:
 	fault.refuse_writes=false;app.retry_save_button.pressed.emit()
 	require(app.scene_page=="result" and not app.bank_pending and int(app.profile.data.clears)==2 and service.finished==2,"Retry save durably banks exactly once")
 	fault=null
-	app.queue_free();await process_frame;await process_frame
+	await _dispose_app(app)
 	service.queue_free();service=null;app=null;actual=null
 	await process_frame
 	if failures==0:print("SWITCHYARD UI SOURCE PASS: %d checks. Native gameplay/ads remain separate."%checks)
