@@ -2,6 +2,7 @@ class_name RailwayProfile
 extends RefCounted
 ## Gameplay persistence only. Native service queue lives independently in Services.
 const SAVE := "user://railway_v1.json"
+const LEVEL_GIFT := 25
 var data: Dictionary = {}
 var recovered := false
 var load_message := ""
@@ -111,6 +112,17 @@ func new_run(board_id: String, daily: bool) -> String:
 func level() -> int:
 	return 1+int(sqrt(float(data.xp)/45.0))
 
+func _earn_xp(amount: int) -> Dictionary:
+	# XP only increases through durable, once-only claim transactions. Comparing
+	# the persisted before/after levels awards each crossing exactly once without
+	# adding a save field or retroactively altering older legitimate profiles.
+	var before: int=level()
+	data.xp=int(data.xp)+amount
+	var after: int=level()
+	var gift: int=maxi(0,after-before)*LEVEL_GIFT
+	data.coins=int(data.coins)+gift
+	return {"level_from":before,"level_to":after,"level_bonus":gift}
+
 func rollover(day: String) -> void:
 	# Advancing UTC dates only. A backward clock does not re-enable any claim.
 	if str(data.day)=="" or day > str(data.day):
@@ -122,15 +134,16 @@ func claim_login(day: String, yesterday: String) -> Dictionary:
 	data.login_streak = mini(7,int(data.login_streak)+1) if str(data.login_last)==yesterday else 1
 	data.login_last=day;data.login_day=day
 	var coins := 20+int(data.login_streak)*5
-	data.coins=int(data.coins)+coins;data.xp=int(data.xp)+5
+	data.coins=int(data.coins)+coins
+	var levels: Dictionary=_earn_xp(5)
 	if not save():data=previous;return {"ok":false,"reason":"save_failed"}
-	return {"ok":true,"coins":coins,"xp":5,"streak":data.login_streak}
+	return {"ok":true,"coins":coins,"xp":5,"streak":data.login_streak,"level_from":levels.level_from,"level_to":levels.level_to,"level_bonus":levels.level_bonus}
 
 func claim_freight(day: String) -> bool:
 	var previous: Dictionary=data.duplicate(true)
 	rollover(day)
 	if day != str(data.day) or bool(data.day_claimed) or int(data.day_clears)<3: return false
-	data.day_claimed=true;data.coins=int(data.coins)+60;data.xp=int(data.xp)+20
+	data.day_claimed=true;data.coins=int(data.coins)+60;_earn_xp(20)
 	if not save():data=previous;return false
 	return true
 
@@ -144,7 +157,8 @@ func bank(run_id: String, board: Dictionary, stars: int, assisted: bool, daily: 
 	var first: bool = not data.records.has(board.id)
 	var earned_coins: int = 25+board.manifest.size()*5+(20 if first else 0)
 	var earned_xp: int = 12+board.manifest.size()*3+(15 if first else 0)
-	data.coins=int(data.coins)+earned_coins;data.xp=int(data.xp)+earned_xp
+	data.coins=int(data.coins)+earned_coins
+	var levels: Dictionary=_earn_xp(earned_xp)
 	data.clears=int(data.clears)+1;data.cargo_total=int(data.cargo_total)+board.manifest.size()
 	data.largest_manifest=maxi(int(data.largest_manifest),board.manifest.size())
 	if day == str(data.day):data.day_clears=int(data.day_clears)+1
@@ -154,7 +168,7 @@ func bank(run_id: String, board: Dictionary, stars: int, assisted: bool, daily: 
 	if not assisted:old.best_unassisted=maxi(int(old.get("best_unassisted",0)),stars)
 	data.records[board.id]=old;data.draft={}
 	if not save():data=previous;return {"ok":false,"reason":"save_failed"}
-	return {"ok":true,"coins":earned_coins,"xp":earned_xp,"first":first,"stars":stars}
+	return {"ok":true,"coins":earned_coins,"xp":earned_xp,"first":first,"stars":stars,"level_from":levels.level_from,"level_to":levels.level_to,"level_bonus":levels.level_bonus}
 
 func stats(boards: Array) -> Dictionary:
 	var result: Dictionary = {"clears":int(data.clears),"cargo_total":int(data.cargo_total),"largest_manifest":int(data.largest_manifest),"xp":int(data.xp),"level":level(),"daily_clears":data.daily_days.size(),"campaign_cleared":data.records.size(),"campaign_stars":0,"perfect":0}

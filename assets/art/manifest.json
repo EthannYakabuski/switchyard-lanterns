@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "purpose": "Runtime cargo illustrations, not gameplay screenshots",
+  "generation_mode": "built-in image_gen",
+  "date_utc": "2026-10-22",
+  "model_identity": "Not exposed; not inferred",
+  "source_sheet_sha256": "59B0748D4382F4DC21F3712F9EA4C9D37237D17BCA0B38616D36923800CFC9AF",
+  "source_sheet_dimensions": [
+    1254,
+    1254
+  ],
+  "prompt": "Use case: stylized-concept. Asset: one production sprite sheet of four distinct runtime cargo icons for the cozy 3D railway puzzle Switchyard Lanterns, square 1024x1024 PNG with a TRUE transparent alpha background. Fixed precise 2-column by2-row equal-cell layout. Every cell contains exactly one independent centered illustrated object; generous transparent gap and at least18percent empty margin within EACH cell. Objects must never touch cell boundaries or each other. Reading order: TOP LEFT one sturdy coral-red wooden parcel crate with visible planks and small warm brass corner fittings; TOP RIGHT one soft midnight-blue postal bag with a clear cream envelope tucked into its front, no letters or stamps with text; BOTTOM LEFT exactly three chunky golden timber logs bound together by one deep-green strap, visible round log end grain; BOTTOM RIGHT one compact ochre-gold water tank/canister with a large clear blue teardrop emblem embossed into its front. These are cargo objects, not trains or wagons. Match a warm amber/indigo railway brand through object materials and restrained brass highlights. Premium softly illustrated toy-like 3D rendering, simple bold silhouettes and broad readable forms that remain immediately recognizable at64pixels; rich but restrained painted wood, cloth, timber and metal textures. Consistent three-quarter front perspective and soft upper-left object lighting. All shading stays INSIDE each object silhouette. Completely transparent pixels outside objects, no ground plane, no cast shadows, no haze or glow outside silhouettes. No text, letters, numbers, logo, badge, tile, frame, UI, border, background or contact-sheet labels. Do not put a checkerboard pattern into the image; use real transparent alpha.",
+  "technical_processing": "Split at completely transparent column670/row605; trim only empty alpha margins within each cell; proportionally resample object to448px maximum edge and center on transparent512px canvas. No semantic redraw, recoloring or alpha replacement.",
+  "assets": [
+    {
+      "key": "parcel",
+      "description": "Coral-red wooden parcel crate",
+      "path": "assets/art/cargo/parcel.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "transparent_background": true,
+      "sha256": "2C5204F1BA9E91F72368D31C8053A00A90C76FFA329A3C6264CBA26490FE33C5",
+      "source_cell": [
+        0,
+        0,
+        670,
+        605
+      ],
+      "source_alpha_bounds_within_cell": [
+        0,
+        32,
+        613,
+        579
+      ],
+      "final_object_size": [
+        448,
+        400
+      ]
+    },
+    {
+      "key": "mail",
+      "description": "Blue postal bag and cream envelope",
+      "path": "assets/art/cargo/mail.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "transparent_background": true,
+      "sha256": "AF9C4124E1182E729F7761899D563CCF148D47B3760E11963F83B1F822A7760A",
+      "source_cell": [
+        670,
+        0,
+        1254,
+        605
+      ],
+      "source_alpha_bounds_within_cell": [
+        19,
+        23,
+        520,
+        603
+      ],
+      "final_object_size": [
+        387,
+        448
+      ]
+    },
+    {
+      "key": "timber",
+      "description": "Three timber logs with green strap",
+      "path": "assets/art/cargo/timber.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "transparent_background": true,
+      "sha256": "01AA89E72582DFC57C06CBEA374C20E8823259773EE8D1DCA8DD0A5D061B565E",
+      "source_cell": [
+        0,
+        605,
+        670,
+        1254
+      ],
+      "source_alpha_bounds_within_cell": [
+        0,
+        2,
+        669,
+        649
+      ],
+      "final_object_size": [
+        448,
+        433
+      ]
+    },
+    {
+      "key": "water",
+      "description": "Gold water tank with blue droplet",
+      "path": "assets/art/cargo/water.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "transparent_background": true,
+      "sha256": "5D138BEDCD4B6886AC79740A701FBAED5BB86B7665EA81DA8F17C7EEEA9AF127",
+      "source_cell": [
+        670,
+        605,
+        1254,
+        1254
+      ],
+      "source_alpha_bounds_within_cell": [
+        5,
+        22,
+        560,
+        649
+      ],
+      "final_object_size": [
+        397,
+        448
+      ]
+    }
+  ]
+}

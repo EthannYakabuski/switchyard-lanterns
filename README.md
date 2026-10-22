@@ -4,18 +4,21 @@ A cozy 3D freight-routing puzzle made with Godot 4.5.1 Compatibility. Set the
 points, collect each manifest in order, and bring the little train home through
 lantern-lit valley yards.
 
-**Development status:** the complete gameplay source is implemented. Isolated
-Godot checks pass 564 model checks, 41 UI/lifecycle checks and 29 audio checks;
-the presentation follow-up has no errors or warnings. Android native play,
-final build packages, six screenshots per device profile, and final handoff are
-still pending; source fixtures do not establish those results.
+**Development status:** gameplay source is implemented. The revised presentation
+and level-up gifts passed 577 model, 44 UI/lifecycle, 29 audio and platform service
+checks with no strict diagnostics or warnings. Earlier hosted Linux CI also
+verified mixer-aware test teardown. The corrective APK and genuine Android
+visual/play acceptance remain pending, along with final packages and six
+screenshots per device profile; source fixtures do not establish native results.
 
 - 48 fixed authored yards across six districts, with stored solutions tested by
   the same simulator used for Preview and actual train movement.
 - Untimed planning; A is the left siding and B the right. Tap a numbered lantern
   or its large bottom chip. Dispatch, Pause, Step, Preview, free Undo and Reset
   remain available without ads. Signed bridges count already-coupled wagons.
-- Dispatcher XP, cosmetic engine liveries, campaign mastery, a curated Daily
+  Train view provides a readable close view; Fit yard restores the whole route.
+- Dispatcher XP with a 25-brass gift for every newly earned level, cosmetic
+  engine liveries, campaign mastery, a curated Daily
   Dispatch, daily freight goals and a seven-day login post.
 - Original district music, sound effects, actual licensed Kenney train/scenery
   scenes, illustrated marketing artwork, and a local 20-achievement journal.

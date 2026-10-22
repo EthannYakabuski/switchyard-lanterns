@@ -19,14 +19,17 @@ model. The mandatory `tests/test_rail_model.gd` checks every complete stored
 solution, trace, order, preview immutability and a full-state fingerprint against
 the other 47 yards. A passing source fixture is not a native-play claim.
 
-The camera fits the actual live board viewport. The points have matching large
-bottom chips and projected world touch targets, so scenery and smaller devices
-do not require precision taps. The train faces +Z in the actual Kenney models.
-The railroad-straight scene retains its supplied -1Y root translation, cancelled
-by its parent wrapper; the train/track scenes do not share that rail offset.
-Curved paths place the supplied Kenney track/sleeper model along the same baked
-curve used for engine and wagon movement. This is an ordered routing puzzle,
-not a freeform reversing, uncoupling or railway-physics simulation.
+The camera fits the projected rail, train and label envelope of its actual live
+viewport, rather than an oversized floor. Train/Fit controls retain an optional
+close view for longer yards. Numbered turnouts have matching large bottom chips
+and projected world touch targets. The supplied train models face +Z. All rails
+use the same actual one-metre Kenney track scene batched along the exact baked
+movement curve, with continuous steel strips across graph-node joins; there is
+no mixed imported-straight-root offset convention. Scenery uses actual model
+units, with readable tree/depot scales and a coherent dusk lighting palette.
+This is an ordered routing puzzle, not a freeform reversing, uncoupling or
+railway-physics simulation. The Home hero is explicitly brand illustration;
+actual yards, trains, gameplay and captured results remain real 3D scenes.
 
 `catalog.json` supplies the stable 20 achievement and three leaderboard keys,
 human-readable names/criteria and distinct marketing icon paths. Backend values
@@ -38,7 +41,9 @@ Gameplay saves use `user://railway_v1.json` with a versioned integer schema,
 verified atomic staging and the previous verified `.bak`. Unreadable originals
 are kept privately under a digest-suffixed `.unreadable-…` filename. Never track
 or publish those profiles. Awards, login post, daily freight goals and new run IDs
-roll back on failed writes. The result UI offers Retry save before continuing.
+roll back on failed writes. A 25-brass level gift is included in that same
+transaction for each newly crossed XP level, with no retroactive profile award
+or extra save-schema field. The result UI offers Retry save before continuing.
 Validated drafts retain recent free Undo history across cold reloads; Undo
 cannot remove an earned hint's assisted flag from that run.
 Actual pending native-ad input and earned callbacks stay paused through the

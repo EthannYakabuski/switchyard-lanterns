@@ -33,6 +33,7 @@ class FixtureServices:
 	func open_achievements() -> void:achievement_opens+=1
 	func open_leaderboards(_key: String="") -> void:board_opens+=1
 	func privacy_options() -> void:pass
+	func status() -> String:return "Isolated source fixture; native services are tested separately."
 
 func _initialize() -> void:call_deferred("run")
 
@@ -64,6 +65,8 @@ func run() -> void:
 	var app: Control=MainScene.instantiate();root.add_child(app)
 	await process_frame;await process_frame
 	require(app.scene_page=="home","real scene opens home")
+	var back: Button=app.header.get_node("BackButton") as Button
+	require(back.size.x>=112.0 and back.size.x<=130.0,"Back retains a touch target without expanding across the header")
 	app._notification(MainLoop.NOTIFICATION_APPLICATION_PAUSED);app._notification(MainLoop.NOTIFICATION_APPLICATION_RESUMED);app._process(0.1)
 	require(app.gate_row.visible and app.resume_button.visible,"Home foreground exposes actual Resume")
 	app.resume_button.pressed.emit();require(not app._blocked(),"Home Resume returns menu controls")
@@ -77,6 +80,8 @@ func run() -> void:
 	var b_screen: Vector2=app.yard.camera.unproject_position(app.yard.node_positions.P1B)
 	require(a_screen.x<b_screen.x,"A really appears left of B in the live camera")
 	require(app.dispatch_button.custom_minimum_size.y>=112,"minimum practical primary touch target")
+	app._toggle_view();require(app.yard.focused and app.view_button.text=="Fit yard","actual Train control offers a readable close view")
+	app._toggle_view();require(not app.yard.focused,"Fit yard restores the complete planned railway")
 	var before: Dictionary=app.model.snapshot();app._preview()
 	require(app.model.snapshot()==before,"UI preview cannot change progression")
 	# Source-fixture dispatch follows the exact model trace and the UI's ordinary

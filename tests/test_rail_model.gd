@@ -109,6 +109,34 @@ func run() -> void:
 	history_model.assisted=true
 	require(history_model.undo() and history_model.assisted,"Undo cannot erase a legitimately earned hint flag")
 	history_model.begin(boards[1]);require(not history_model.assisted,"genuine new run resets assistance")
+	var legacy:=Profile.new();legacy.data.coins=50;legacy.data.xp=30
+	require(legacy.save(),"existing valid profile remains serializable without migration")
+	var retained:=Profile.new();retained.load_file()
+	require(int(retained.data.coins)==50 and int(retained.data.xp)==30 and retained.level()==1,"existing profile receives no synthetic or retroactive gift")
+	var next_run: String=retained.new_run(boards[1].id,false)
+	var promotion: Dictionary=retained.bank(next_run,boards[1],3,false,false,"2026-10-22")
+	require(promotion.ok and promotion.level_from==1 and promotion.level_to==2 and promotion.level_bonus==25,"real XP threshold grants exactly one level gift")
+	require(int(retained.data.coins)==130 and int(retained.data.xp)==63,"bank pays base delivery plus level gift atomically")
+	var promoted: Dictionary=retained.data.duplicate(true)
+	require(not retained.bank(next_run,boards[1],3,false,false,"2026-10-22").ok and retained.data==promoted,"repeat result cannot pay a second level gift")
+	var cold_level:=Profile.new();cold_level.load_file()
+	require(cold_level.data==promoted and cold_level.level()==2,"cold load does not duplicate level-up gifts")
+	var login_level:=Profile.new();login_level.data.xp=44
+	var login_promotion: Dictionary=login_level.claim_login("2026-10-22","2026-10-21")
+	require(login_promotion.ok and login_promotion.level_bonus==25 and int(login_level.data.coins)==50,"login XP threshold pays its level gift in the same claim")
+	var login_before: Dictionary=login_level.data.duplicate(true)
+	require(not login_level.claim_login("2026-10-22","2026-10-21").ok and login_level.data==login_before,"repeat post cannot repeat promotion gift")
+	var freight_level:=Profile.new();freight_level.data.xp=44;freight_level.data.day="2026-10-22";freight_level.data.day_clears=3
+	require(freight_level.claim_freight("2026-10-22") and int(freight_level.data.coins)==85 and freight_level.level()==2,"freight XP threshold pays its level gift atomically")
+	var freight_before: Dictionary=freight_level.data.duplicate(true)
+	require(not freight_level.claim_freight("2026-10-22") and freight_level.data==freight_before,"repeat freight goal cannot repeat promotion gift")
+	var fault_level:=FaultProfile.new();fault_level.data.xp=44;fault_level.refuse_writes=true
+	var fault_before: Dictionary=fault_level.data.duplicate(true)
+	require(not fault_level.bank("yard_01:threshold:campaign",boards[0],3,false,false,"2026-10-22").ok and fault_level.data==fault_before,"failed bank rolls back XP crossing and gift together")
+	require(not fault_level.claim_login("2026-10-22","2026-10-21").ok and fault_level.data==fault_before,"failed login rolls back XP crossing and gift together")
+	fault_level.data.day="2026-10-22";fault_level.data.day_clears=3;fault_before=fault_level.data.duplicate(true)
+	require(not fault_level.claim_freight("2026-10-22") and fault_level.data==fault_before,"failed freight save rolls back XP crossing and gift together")
+	legacy=null;retained=null;cold_level=null;login_level=null;freight_level=null;fault_level=null
 	bridge=null;history_model=null;cold=null
 	teaching=null;order=null;pause=null;profile=null;loaded=null;backup=null
 	faulty=null

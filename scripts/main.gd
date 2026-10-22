@@ -45,6 +45,8 @@ var undo_button: Button
 var status_label: Label
 var manifest_label: Label
 var manifest_chips: Array[Label] = []
+var view_button: Button
+var last_service_notice := ""
 var point_buttons: Dictionary = {}
 var action_buttons: Array[Button] = []
 var reward_button: Button
@@ -65,7 +67,7 @@ func _ready() -> void:
 	_setup_audio();_setup_theme();_shell()
 	services.menu_bottom_reserve_changed.connect(_banner_space)
 	services.availability_changed.connect(_availability)
-	services.service_notice.connect(_toast)
+	services.service_notice.connect(_service_notice)
 	resized.connect(_banner_space)
 	_show_home()
 	if profile.load_message!="":_toast(profile.load_message)
@@ -94,11 +96,13 @@ func _shell() -> void:
 	stage=VBoxContainer.new();margin.add_child(stage)
 	header=HBoxContainer.new();header.custom_minimum_size.y=104;stage.add_child(header)
 	var back:=_button("‹",_back,112);back.name="BackButton";header.add_child(back)
+	back.size_flags_horizontal=Control.SIZE_SHRINK_BEGIN
 	var title_column:=VBoxContainer.new();title_column.size_flags_horizontal=Control.SIZE_EXPAND_FILL;header.add_child(title_column)
 	nav_title=_label("SWITCHYARD LANTERNS",32,GOLD);title_column.add_child(nav_title)
 	wallet=_label("",25,MUTED);title_column.add_child(wallet)
+	nav_title.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;wallet.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	body=Control.new();body.size_flags_vertical=Control.SIZE_EXPAND_FILL;body.size_flags_horizontal=Control.SIZE_EXPAND_FILL;stage.add_child(body)
-	notice=_label("",24,MUTED);notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.custom_minimum_size.y=50;stage.add_child(notice)
+	notice=_label("",24,MUTED);notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.visible=false;stage.add_child(notice)
 	gate_row=HBoxContainer.new();stage.add_child(gate_row);pause_label=_paragraph("",25,GOLD);pause_label.size_flags_horizontal=Control.SIZE_EXPAND_FILL;gate_row.add_child(pause_label)
 	resume_button=Button.new();resume_button.text="Resume";resume_button.custom_minimum_size=Vector2(220,112);resume_button.pressed.connect(_resume_gate);gate_row.add_child(resume_button);gate_row.visible=false
 	retry_save_button=Button.new();retry_save_button.text="Retry save";retry_save_button.custom_minimum_size=Vector2(240,112);retry_save_button.pressed.connect(_retry_save);gate_row.add_child(retry_save_button);retry_save_button.visible=false
@@ -118,17 +122,23 @@ func _button(text: String,callback: Callable,min_width: float=0,height: float=11
 		_sound("click");callback.call())
 	return button
 
-func _panel(parent: Node,color: Color=PANEL) -> VBoxContainer:
+func _panel(parent: Node,color: Color=PANEL,padding: int=22) -> VBoxContainer:
 	var panel:=PanelContainer.new();var style:=StyleBoxFlat.new();style.bg_color=color;style.set_corner_radius_all(22);style.border_color=Color("68776d");style.set_border_width_all(2)
-	style.content_margin_left=22;style.content_margin_right=22;style.content_margin_top=22;style.content_margin_bottom=22;panel.add_theme_stylebox_override("panel",style);parent.add_child(panel)
+	style.content_margin_left=padding;style.content_margin_right=padding;style.content_margin_top=padding;style.content_margin_bottom=padding;panel.add_theme_stylebox_override("panel",style);parent.add_child(panel)
 	var column:=VBoxContainer.new();panel.add_child(column);return column
 
 func _clear(page: String,title: String,menu: bool=true) -> VBoxContainer:
 	request_token+=1
 	reward_pending=false
+	_toast("")
 	if is_instance_valid(yard):yard.shutdown()
 	yard=null
-	for child in body.get_children():body.remove_child(child);child.queue_free()
+	# Keep the control dispatching this pressed signal inside the tree until its
+	# deferred deletion; Android may still query its can_process() during return.
+	for child in body.get_children():
+		if child is CanvasItem:child.hide()
+		if child is Control:child.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		child.process_mode=Node.PROCESS_MODE_DISABLED;child.queue_free()
 	point_buttons.clear();action_buttons.clear();status_label=null;manifest_label=null;reward_button=null;dispatch_button=null;step_button=null;undo_button=null
 	scene_page=page;nav_title.text=title
 	services.set_menu_visible(menu);_banner_space();_wallet()
@@ -149,7 +159,21 @@ func _availability() -> void:
 	if is_instance_valid(reward_button):reward_button.disabled=not services.can_reward()
 
 func _toast(text: String) -> void:
-	if is_instance_valid(notice):notice.text=text
+	if is_instance_valid(notice):notice.text=text;notice.visible=not text.is_empty()
+
+func _service_notice(text: String) -> void:
+	last_service_notice=text
+	if scene_page in ["journal","settings"]:_toast(text)
+
+func _primary(button: Button) -> void:
+	for state in ["normal","hover","pressed"]:
+		var style: StyleBoxFlat=button.get_theme_stylebox(state,"Button").duplicate() as StyleBoxFlat
+		style.bg_color=GOLD if state!="pressed" else Color("c8964c");style.border_color=Color("ffe0a3");button.add_theme_stylebox_override(state,style)
+	button.add_theme_color_override("font_color",INK);button.add_theme_color_override("font_hover_color",INK);button.add_theme_color_override("font_pressed_color",INK)
+
+func _tertiary(button: Button) -> void:
+	var style: StyleBoxFlat=button.get_theme_stylebox("normal","Button").duplicate() as StyleBoxFlat
+	style.bg_color=Color("1c303d");style.border_color=Color("4f6870");button.add_theme_stylebox_override("normal",style)
 
 func _today() -> String:
 	return Time.get_date_string_from_system(true)
@@ -165,19 +189,25 @@ func _hero(column: VBoxContainer,index: int,height: float=390) -> void:
 	var board: Dictionary=content.boards[index];yard.build(board,content.districts[int(board.district)],content.cargo,true)
 	yard.apply_livery(int(profile.data.settings.livery))
 
+func _brand_hero(column: VBoxContainer) -> void:
+	var frame:=AspectRatioContainer.new();frame.ratio=1024.0/500.0;frame.stretch_mode=AspectRatioContainer.STRETCH_FIT;frame.custom_minimum_size.y=320;frame.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(frame)
+	var image:=TextureRect.new();image.texture=load("res://marketing/branding/feature_graphic.png") as Texture2D;image.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;image.mouse_filter=Control.MOUSE_FILTER_IGNORE;frame.add_child(image)
+
 func _show_home() -> void:
 	is_dispatching=false;step_animating=false;pending_event={}
 	var column:=_clear("home","SWITCHYARD LANTERNS")
 	_music("menu")
-	var head:=_panel(column)
-	head.add_child(_label("Set the points. Light the route.",36,GOLD))
-	head.add_child(_paragraph("A little railway worth coming home to. Untimed freight puzzles, warm lights, and every wagon in its place.",28))
-	_hero(column,0,320)
+	var head:=_panel(column,PANEL,16)
+	head.add_child(_label("Set the points. Light the route.",32,GOLD))
+	head.add_child(_paragraph("Untimed railway puzzles. Every wagon in its place.",25))
+	_brand_hero(column)
 	var buttons:=VBoxContainer.new();column.add_child(buttons)
-	buttons.add_child(_button("Campaign  •  48 lantern yards",_show_campaign))
+	if not profile.data.draft.is_empty():
+		var continue_row:=HBoxContainer.new();buttons.add_child(continue_row);continue_row.add_child(_button("Continue route",_continue_route));continue_row.add_child(_button("Campaign - 48 yards",_show_campaign))
+	else:
+		var campaign:=_button("Campaign - 48 lantern yards",_show_campaign);_primary(campaign);buttons.add_child(campaign)
 	var row:=HBoxContainer.new();buttons.add_child(row)
 	row.add_child(_button("Daily freight",_show_daily));row.add_child(_button("Keeper's journal",_show_journal))
-	if not profile.data.draft.is_empty():buttons.add_child(_button("Continue paused route",_continue_route))
 	var last:=HBoxContainer.new();buttons.add_child(last)
 	last.add_child(_button("Sound & settings",_show_settings));last.add_child(_button("How to dispatch",_show_help))
 
@@ -209,13 +239,20 @@ func _show_daily() -> void:
 
 func _claim_login() -> void:
 	var result:=profile.claim_login(_today(),_yesterday());_show_daily()
-	if result.get("ok",false):_toast("Post delivered: +%d brass, +5 XP. Stamp %d / 7."%[result.coins,result.streak]);_sync_services()
+	if result.get("ok",false):_toast("Post delivered: +%d brass, +5 XP. Stamp %d / 7."%[result.coins,result.streak]+_level_gift_text(int(result.level_from),int(result.level_to)));_sync_services()
 	elif result.get("reason","")=="save_failed":_toast("The post could not be saved. Nothing was claimed; please retry.")
 
 func _claim_freight() -> void:
-	if profile.claim_freight(_today()):_toast("Valley freight goal: +60 brass, +20 XP.");_sync_services()
-	else:_toast("The goal was not claimed. If storage is unavailable, free space and retry.")
+	var before: int=profile.level()
+	var claimed: bool=profile.claim_freight(_today())
+	var after: int=profile.level()
 	_show_daily()
+	if claimed:_toast("Valley freight goal: +60 brass, +20 XP."+_level_gift_text(before,after));_sync_services()
+	else:_toast("The goal was not claimed. If storage is unavailable, free space and retry.")
+
+func _level_gift_text(before: int,after: int) -> String:
+	if after<=before:return ""
+	return "  Level %d! +%d brass level gift."%[after,(after-before)*Profile.LEVEL_GIFT]
 
 func _show_journal() -> void:
 	var column:=_clear("journal","KEEPER'S JOURNAL");var list:=_scroll(column)
@@ -247,8 +284,9 @@ func _show_settings() -> void:
 	card.add_child(_label("ENGINE LIVERIES",32,GOLD))
 	for i in range(3):
 		var needed: int=[1,5,10][i]
-		var livery:=_button(["Lantern red","Orchard green","Midnight blue"][i]+("  ✓" if int(profile.data.settings.livery)==i else "")+"  · Lv %d"%needed,_set_livery.bind(i));livery.disabled=profile.level()<needed;card.add_child(livery)
+		var livery:=_button(["Lantern teal","Orchard green","Midnight blue"][i]+("  ✓" if int(profile.data.settings.livery)==i else "")+"  · Lv %d"%needed,_set_livery.bind(i));livery.disabled=profile.level()<needed;card.add_child(livery)
 	card.add_child(_button("Ad privacy choices",func():services.privacy_options()))
+	card.add_child(_paragraph(str(services.status()),24,MUTED))
 	card.add_child(_paragraph("All ordinary play, retries and Undo are free. Optional earned hints mark a run assisted. Native services may be unavailable offline; local progress still works.",26))
 
 func _set_speed(value: float) -> void:
@@ -283,34 +321,48 @@ func _continue_route() -> void:
 
 func _show_game() -> void:
 	var column:=_clear("game",str(model.board.title).to_upper(),false)
+	column.add_theme_constant_override("separation",12)
 	_music(str(content.districts[int(model.board.district)].music))
-	var manifest_card:=_panel(column,Color("304c51"));manifest_label=_paragraph("MANIFEST  •  COLLECT LEFT TO RIGHT",25,CREAM);manifest_card.add_child(manifest_label)
+	var manifest_card:=_panel(column,Color("263e4c"),12);manifest_card.add_theme_constant_override("separation",6)
 	manifest_chips.clear()
-	var manifest_row:=HBoxContainer.new();manifest_row.add_theme_constant_override("separation",6);manifest_card.add_child(manifest_row)
+	var manifest_row:=HBoxContainer.new();manifest_row.add_theme_constant_override("separation",8);manifest_card.add_child(manifest_row)
+	manifest_label=_label("LOAD",25,GOLD);manifest_label.custom_minimum_size=Vector2(78,84);manifest_label.vertical_alignment=VERTICAL_ALIGNMENT_CENTER;manifest_row.add_child(manifest_label)
+	var cargo_icons: Dictionary={"R":"parcel","B":"mail","L":"timber","T":"water"}
 	for i in range(model.board.manifest.size()):
 		var code: String=str(model.board.manifest[i]);var cargo: Dictionary=content.cargo[code]
-		var chip:=_label("",24,Color(str(cargo.color)));chip.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;chip.size_flags_horizontal=Control.SIZE_EXPAND_FILL;chip.custom_minimum_size=Vector2(72,66)
-		manifest_row.add_child(chip);manifest_chips.append(chip)
+		var cell:=VBoxContainer.new();cell.custom_minimum_size=Vector2(110,84);cell.add_theme_constant_override("separation",0);manifest_row.add_child(cell)
+		var picture:=TextureRect.new();picture.custom_minimum_size=Vector2(68,56);picture.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;picture.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED;picture.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		var path: String="res://assets/art/cargo/%s.png"%str(cargo_icons[code])
+		if ResourceLoader.exists(path):picture.texture=load(path) as Texture2D
+		cell.add_child(picture)
+		var chip:=_label("",22,CREAM);chip.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;cell.add_child(chip);manifest_chips.append(chip)
 	if model.board.tutorial:
-		manifest_card.add_child(_paragraph("A is left; B is right. Tap 1 A / B, read the manifest, Preview, then Dispatch." if board_index==0 else "Two points, two pickups. Set both before leaving the shed. Pause and Undo are always free.",25,GOLD))
+		manifest_card.add_child(_paragraph("A is left. B is right. Preview the brass route, then Dispatch." if board_index==0 else "Set both points before leaving. Pause, Step and free Undo let you learn safely.",22,GOLD))
 	elif bool(model.board.get("has_capacity_limits",false)):
-		manifest_card.add_child(_paragraph("Bridge MAX signs count wagons already coupled; the engine is free. Choose a siding that holds your load.",24,GOLD))
-	yard=Yard.new();yard.custom_minimum_size.y=280;yard.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(yard);yard.build(model.board,content.districts[int(model.board.district)],content.cargo);yard.sync_snapshot(model.snapshot())
-	yard.apply_livery(int(profile.data.settings.livery))
-	yard.point_requested.connect(_toggle_point)
-	status_label=_paragraph(model.message,27,CREAM);status_label.custom_minimum_size.y=64;column.add_child(status_label)
+		manifest_card.add_child(_paragraph("Bridge MAX = wagons already coupled. The engine does not count.",22,GOLD))
+	yard=Yard.new();yard.custom_minimum_size.y=300;yard.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(yard);yard.build(model.board,content.districts[int(model.board.district)],content.cargo);yard.sync_snapshot(model.snapshot())
+	yard.apply_livery(int(profile.data.settings.livery));yard.point_requested.connect(_toggle_point)
+	status_label=_paragraph(model.message,25,CREAM);status_label.custom_minimum_size.y=42;column.add_child(status_label)
 	var point_row:=HBoxContainer.new();point_row.add_theme_constant_override("separation",10);column.add_child(point_row)
 	for key in model.points:
-		var button:=_button(str(key),_toggle_point.bind(str(key)),0,112);button.add_theme_font_size_override("font_size",26);point_row.add_child(button);point_buttons[key]=button;action_buttons.append(button)
-	var row:=HBoxContainer.new();column.add_child(row)
-	dispatch_button=_button("Dispatch",_dispatch);row.add_child(dispatch_button);action_buttons.append(dispatch_button)
-	step_button=_button("Step",_step);row.add_child(step_button);action_buttons.append(step_button)
-	var preview:=_button("Preview",_preview);row.add_child(preview);action_buttons.append(preview)
+		var button:=_button(str(key),_toggle_point.bind(str(key)),112,112);button.add_theme_font_size_override("font_size",26)
+		if model.points.size()<=2:button.size_flags_horizontal=Control.SIZE_SHRINK_BEGIN
+		point_row.add_child(button);point_buttons[key]=button;action_buttons.append(button)
+	var primary_row: HBoxContainer=point_row
+	if model.points.size()>2:primary_row=HBoxContainer.new();column.add_child(primary_row)
+	dispatch_button=_button("Dispatch",_dispatch);_primary(dispatch_button);primary_row.add_child(dispatch_button);action_buttons.append(dispatch_button)
+	step_button=_button("Step",_step);primary_row.add_child(step_button);action_buttons.append(step_button)
+	var preview:=_button("Preview",_preview);primary_row.add_child(preview);action_buttons.append(preview)
+	view_button=_button("Train",_toggle_view);primary_row.add_child(view_button);action_buttons.append(view_button)
 	var second:=HBoxContainer.new();column.add_child(second)
-	undo_button=_button("Undo",_undo);second.add_child(undo_button);action_buttons.append(undo_button)
-	var reset:=_button("Reset",_reset);second.add_child(reset);action_buttons.append(reset)
-	reward_button=_button("Earn route hint",_request_hint);second.add_child(reward_button);action_buttons.append(reward_button)
+	undo_button=_button("Undo",_undo);_tertiary(undo_button);second.add_child(undo_button);action_buttons.append(undo_button)
+	var reset:=_button("Reset",_reset);_tertiary(reset);second.add_child(reset);action_buttons.append(reset)
+	reward_button=_button("Hint (ad)",_request_hint);_tertiary(reward_button);second.add_child(reward_button);action_buttons.append(reward_button)
 	_update_game()
+
+func _toggle_view() -> void:
+	if not is_instance_valid(yard):return
+	view_button.text="Fit yard" if yard.toggle_view() else "Train"
 
 func _manifest_text() -> String:
 	var names: Array[String]=[]
@@ -387,12 +439,15 @@ func _retry_save() -> void:
 
 func _show_result() -> void:
 	var final_state:=model.snapshot()
-	var column:=_clear("result","WELCOME HOME")
+	var page:=_clear("result","WELCOME HOME")
+	var column:=_scroll(page)
 	var card:=_panel(column);card.add_child(_label(str(model.board.title),38,GOLD));card.add_child(_paragraph("Every wagon in its place. %s"%("Assisted route — ordinary progress earned; efficiency record excluded." if model.assisted else "Unassisted dispatch."),28))
 	var stars_row:=HBoxContainer.new();stars_row.alignment=BoxContainer.ALIGNMENT_CENTER;card.add_child(stars_row)
 	for i in range(3):_icon(stars_row,"assets/kenney/ui/PNG/Yellow/Double/star.png" if i<model.stars() else "assets/kenney/ui/PNG/Grey/Double/star_outline.png",90)
 	card.add_child(_paragraph("%d track steps  •  %d Undo  •  %d wagons"%[model.steps,model.undo_count,model.collected.size()],28))
 	card.add_child(_label("+%d brass   +%d XP"%[int(result_award.get("coins",0)),int(result_award.get("xp",0))],36,GOLD))
+	if int(result_award.get("level_bonus",0))>0:
+		card.add_child(_paragraph("Dispatcher level %d! An extra %d brass from the lantern post."%[int(result_award.level_to),int(result_award.level_bonus)],30,GOLD))
 	_hero(column,board_index,260);yard.sync_snapshot(final_state)
 	var row:=HBoxContainer.new();column.add_child(row)
 	if not daily and board_index<47:row.add_child(_button("Next yard",_start_board.bind(board_index+1,false)))
@@ -451,8 +506,8 @@ func _update_game() -> void:
 	if scene_page!="game" or model==null:return
 	for i in range(manifest_chips.size()):
 		var code: String=str(model.board.manifest[i]);var cargo: Dictionary=content.cargo[code]
-		var symbol: String={"R":"▦","B":"✉","L":"≡","T":"●"}.get(code,"")
-		manifest_chips[i].text=("✓ " if i<model.collected.size() else str(i+1)+" ")+symbol+"\n"+str(cargo.name)
+		manifest_chips[i].text=("Done " if i<model.collected.size() else str(i+1)+" ")+str(cargo.name)
+		manifest_chips[i].add_theme_color_override("font_color",GOLD if i<model.collected.size() else CREAM)
 	status_label.text=model.message+("  •  Assisted" if model.assisted else "")
 	if hinted_text!="" and not is_dispatching:status_label.text=hinted_text
 	for key in point_buttons:
