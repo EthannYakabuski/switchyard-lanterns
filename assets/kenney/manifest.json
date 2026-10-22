@@ -1,0 +1,200 @@
+[
+  {
+    "path": "assets/kenney/train/train-locomotive-a.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "8dfe9d20667c1534652286149fb0e1639ff48975a4187d3ad2fd956add0bba2a"
+  },
+  {
+    "path": "assets/kenney/train/train-diesel-a.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "20c6c7c23c005e8cda1c1e922473c0fc9c93fc7c1d1bc5a637d640424f811cc3"
+  },
+  {
+    "path": "assets/kenney/train/train-carriage-container-red.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "c210aff0fc5d4ee92446b1fdc24ad502df4eabda639c29cc88dd6e64b5abe111"
+  },
+  {
+    "path": "assets/kenney/train/train-carriage-container-blue.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "3e76c5367080f8b82efc4ab8ecf50af15c01e5b41e96576515ede0a76a6257e2"
+  },
+  {
+    "path": "assets/kenney/train/train-carriage-container-green.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "0c3b0ab9f64f3dba22e9d97f9d36b8df20e3b6cfaab8e4c484e75ef820919f27"
+  },
+  {
+    "path": "assets/kenney/train/train-carriage-lumber.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "c205eff406b60d1c3df668c688ec5841a476568aaccc970a195287aa863b9bf6"
+  },
+  {
+    "path": "assets/kenney/train/train-carriage-tank.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "0de1d92587c0b4d79e6dd1dad7d4d2e8ef849330af07e2f1701b98b9e0cf4e6a"
+  },
+  {
+    "path": "assets/kenney/train/train-carriage-box.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "6b594f3f7ef779879043219e2ee79eb37523427e2100855296a0c9662b36689c"
+  },
+  {
+    "path": "assets/kenney/train/train-connector.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "9d9d5154308e9298c0904be683d7471d23ab80bf00523f1d82326258ab7c2a4e"
+  },
+  {
+    "path": "assets/kenney/train/railroad-straight.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "bcbd501f74b754b61f2ddb5cba2d45d5d694bfd25c497fa72af65202a53930d9"
+  },
+  {
+    "path": "assets/kenney/train/railroad-corner-small.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "226bd0142198540a7f812f1e2826e9c2cc61dda0b097fdcd673146f8a2ed6ee6"
+  },
+  {
+    "path": "assets/kenney/train/railroad-corner-large.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "be0ed13b14aa6753f707a50b6986f09f38a0a42eac5d87fd0f56176d3cbf70a5"
+  },
+  {
+    "path": "assets/kenney/train/railroad-curve.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "2b82b46bf369a755e569f3990445b3189ad0e65c5d8ce23616d5ccfc25e54be9"
+  },
+  {
+    "path": "assets/kenney/train/track.glb",
+    "source_pack": "kenney_train-kit",
+    "license": "CC0-1.0",
+    "sha256": "a288815a2d74cea1e06c66e8cd9d7006fbe14c62d991cd25096306ec7681ed2b"
+  },
+  {
+    "path": "assets/kenney/nature/ground_grass.glb",
+    "source_pack": "kenney_nature-kit",
+    "license": "CC0-1.0",
+    "sha256": "da741e8ab34ca70c0c85ccda21538558a798188db2f1e265885bcdd226a5cca2"
+  },
+  {
+    "path": "assets/kenney/nature/cliff_block_rock.glb",
+    "source_pack": "kenney_nature-kit",
+    "license": "CC0-1.0",
+    "sha256": "2f31de8502288d6adcdae4d5605cfe65d4bcd4369dd0decd116c2615b9d3d01f"
+  },
+  {
+    "path": "assets/kenney/nature/tree_pineTallA.glb",
+    "source_pack": "kenney_nature-kit",
+    "license": "CC0-1.0",
+    "sha256": "e0a56eb196d8a64ba86c7304d607136e17e6f9ad748dffcf86bd53b18b91b196"
+  },
+  {
+    "path": "assets/kenney/nature/tree_pineRoundA.glb",
+    "source_pack": "kenney_nature-kit",
+    "license": "CC0-1.0",
+    "sha256": "7dc9711f31585eafdcb965d0649c30af5e19f2def1955f7a915081d30759ef8e"
+  },
+  {
+    "path": "assets/kenney/nature/ground_riverStraight.glb",
+    "source_pack": "kenney_nature-kit",
+    "license": "CC0-1.0",
+    "sha256": "d1061c7ab8d883fb26177e7cc36b2564b0a437620465c24f1a29629423cda096"
+  },
+  {
+    "path": "assets/kenney/nature/ground_riverCorner.glb",
+    "source_pack": "kenney_nature-kit",
+    "license": "CC0-1.0",
+    "sha256": "e6e1eece775ad0fd23bc60fe5d7094a792bef53de71e68790afac692f511edb9"
+  },
+  {
+    "path": "assets/kenney/nature/bridge_wood.glb",
+    "source_pack": "kenney_nature-kit",
+    "license": "CC0-1.0",
+    "sha256": "3da4c208b0f72b7f2ba42db521b62ec4b0278050c75256a6982c40d21aab5701"
+  },
+  {
+    "path": "assets/kenney/nature/fence_planks.glb",
+    "source_pack": "kenney_nature-kit",
+    "license": "CC0-1.0",
+    "sha256": "2db68f60d24443dbeab05dedd92fcc665d0e21bd261c6a668ea9022a732a06a9"
+  },
+  {
+    "path": "assets/kenney/nature/log_stack.glb",
+    "source_pack": "kenney_nature-kit",
+    "license": "CC0-1.0",
+    "sha256": "90eaae4a01ba1f25c2f0c6d83087e4a7a8fac684f2452615245333968d118d68"
+  },
+  {
+    "path": "assets/kenney/industrial/building-e.glb",
+    "source_pack": "kenney_city-kit-industrial_2.0",
+    "license": "CC0-1.0",
+    "sha256": "d61fed5e9502af9c698367ab69d5bc50b673375929e51c22af247dfb1db6cd16"
+  },
+  {
+    "path": "assets/kenney/industrial/shipping-container-a.glb",
+    "source_pack": "kenney_city-kit-industrial_2.0",
+    "license": "CC0-1.0",
+    "sha256": "7b2d5ca874c8e659ee6cfd1614f0470b70410b2ddc7620ac83b8954dedeb861d"
+  },
+  {
+    "path": "assets/kenney/industrial/water-tower.glb",
+    "source_pack": "kenney_city-kit-industrial_2.0",
+    "license": "CC0-1.0",
+    "sha256": "11ac7ae19f32ce889bfe7a9c8e78c8ce8c77b7a76b52fd4ffa439a022ea2ef40"
+  },
+  {
+    "path": "assets/kenney/modular/building-sample-house-a.glb",
+    "source_pack": "kenney_modular-buildings",
+    "license": "CC0-1.0",
+    "sha256": "28fae63b748ee8610174092c1d648a2b913a0c5f1ba07426656571766c69b415"
+  },
+  {
+    "path": "assets/kenney/modular/roof-gable.glb",
+    "source_pack": "kenney_modular-buildings",
+    "license": "CC0-1.0",
+    "sha256": "46c82911f18f6f6c65a5f814538626477321fc97c9eaf2d4549628c890f87dde"
+  },
+  {
+    "path": "assets/kenney/ui/PNG/Yellow/Double/star.png",
+    "source_pack": "kenney_ui-pack",
+    "license": "CC0-1.0",
+    "sha256": "3b985be792f2f73f0d5b2827c806236723f44f8cd03c39fc73a4e273ec03e4f8"
+  },
+  {
+    "path": "assets/kenney/ui/PNG/Grey/Double/star_outline.png",
+    "source_pack": "kenney_ui-pack",
+    "license": "CC0-1.0",
+    "sha256": "510a3a7e38834f61f425b7304573b86fc8a3a807f3577f1ca6a58f7b821d4a5f"
+  },
+  {
+    "path": "assets/kenney/ui/PNG/Grey/Double/button_rectangle_depth_gradient.png",
+    "source_pack": "kenney_ui-pack",
+    "license": "CC0-1.0",
+    "sha256": "7a4c6cd08dcff68f50dc6db3aa4f4992fd88434b841fc10581e915089fba15bb"
+  },
+  {
+    "path": "assets/kenney/ui/Font/Kenney Future.ttf",
+    "source_pack": "kenney_ui-pack",
+    "license": "CC0-1.0",
+    "sha256": "7a55b07f5968fac872648a7c5e959bd2b93e06f63153b585d56e4d5298ddff61"
+  },
+  {
+    "path": "assets/kenney/ui/Font/Kenney Future Narrow.ttf",
+    "source_pack": "kenney_ui-pack",
+    "license": "CC0-1.0",
+    "sha256": "17e182587a3264dcf9e5b17c055715d5597187546ce81925c64e9184c26d597f"
+  }
+]

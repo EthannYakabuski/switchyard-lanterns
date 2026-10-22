@@ -1,0 +1,90 @@
+{
+  "game": "switchyard-lanterns",
+  "sfx": [
+    {
+      "file": "sfx/click.ogg",
+      "source_pack_path": "kenney_interface-sounds/Audio/click_003.ogg",
+      "license": "CC0-1.0",
+      "sha256": "2FA929138BC3A0F432696588F66EAC94B8F6D463905EC8808C6461CE4B054292",
+      "bytes": 4371,
+      "modified": false,
+      "channels": 1,
+      "sample_rate": 44100,
+      "duration_seconds": 0.010022675736961452
+    },
+    {
+      "file": "sfx/switch.ogg",
+      "source_pack_path": "kenney_interface-sounds/Audio/switch_005.ogg",
+      "license": "CC0-1.0",
+      "sha256": "E94DFAB6FD6558068AB3EA97E22E4B4F16B83EE440E6ABF33EC4C4E9FBE8A70E",
+      "bytes": 7814,
+      "modified": false,
+      "channels": 2,
+      "sample_rate": 44100,
+      "duration_seconds": 0.6119274376417233
+    },
+    {
+      "file": "sfx/coupling.ogg",
+      "source_pack_path": "kenney_rpg-audio/Audio/metalLatch.ogg",
+      "license": "CC0-1.0",
+      "sha256": "BA9BA60B172B3EBC131A940F25793CD2E207ACA7AF73DC80D637277F060F1708",
+      "bytes": 10208,
+      "modified": false,
+      "channels": 2,
+      "sample_rate": 48000,
+      "duration_seconds": 0.2613333333333333
+    },
+    {
+      "file": "sfx/arrival.ogg",
+      "source_pack_path": "kenney_interface-sounds/Audio/confirmation_002.ogg",
+      "license": "CC0-1.0",
+      "sha256": "33B17A9A9A2397C62B285C52C33A907FDFFB476909C99E42DDE603F6A7A8B12C",
+      "bytes": 14169,
+      "modified": false,
+      "channels": 1,
+      "sample_rate": 44100,
+      "duration_seconds": 0.5390022675736962
+    },
+    {
+      "file": "sfx/error.ogg",
+      "source_pack_path": "kenney_interface-sounds/Audio/error_002.ogg",
+      "license": "CC0-1.0",
+      "sha256": "76810EC365F41078FD0507101DA5BB7B8730FE011DDE43908329FDABD8575E79",
+      "bytes": 7369,
+      "modified": false,
+      "channels": 2,
+      "sample_rate": 44100,
+      "duration_seconds": 0.1645578231292517
+    },
+    {
+      "file": "sfx/whistle.wav",
+      "license": "Apache-2.0",
+      "source": "Original additive synthesis; compose_original_music.py",
+      "sha256": "E230328F6A2F7282181ED9EF1CBAF75002655741ED11F8AB557487799036B231",
+      "bytes": 50758,
+      "modified": false,
+      "sample_rate": 22050,
+      "channels": 1,
+      "duration_seconds": 1.1499773242630384
+    }
+  ],
+  "kenney_licenses": [
+    {
+      "pack": "kenney_interface-sounds",
+      "file": "kenney_interface-sounds-CC0.txt",
+      "sha256": "F7966C773BBED0ECA6A9C75081C44A178B38EAE112724DBB5FDFBD4192D118A9",
+      "license": "CC0-1.0"
+    },
+    {
+      "pack": "kenney_rpg-audio",
+      "file": "kenney_rpg-audio-CC0.txt",
+      "sha256": "5735DFD72CB64CBBCEDA4EBC00C380C41CA680EDB82FF153AA7C9AB97614C539",
+      "license": "CC0-1.0"
+    }
+  ],
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "music_manifest": "music/original_music_manifest.json",
+  "actual_audio_output_validation": false,
+  "engine_import_validation": false,
+  "note": "Source byte/hash, Ogg page duration and WAV sample/loop/headroom checks completed; listening and engine/native checks remain separate."
+}
