@@ -82,6 +82,9 @@ func _setup_theme() -> void:
 	for state in ["normal","hover","pressed","disabled","focus"]:
 		var box:=StyleBoxFlat.new();box.bg_color=PANEL if state!="pressed" else Color("48665f")
 		if state=="disabled":box.bg_color=Color("23353d")
+		# Focus is drawn on top of the active style; its fill must not hide a
+		# primary button's amber surface behind an ink-colored label.
+		if state=="focus":box.draw_center=false
 		box.border_color=GOLD if state in ["focus","hover"] else Color("61736c")
 		box.set_border_width_all(3 if state=="focus" else 2);box.set_corner_radius_all(20)
 		box.content_margin_left=18;box.content_margin_right=18;box.content_margin_top=14;box.content_margin_bottom=14

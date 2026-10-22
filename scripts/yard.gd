@@ -212,6 +212,9 @@ func _track(edge: Dictionary) -> void:
 
 func _label(text: String,position: Vector3,color: Color=Color("fff0d0"),font_size: int=44) -> Label3D:
 	var label:=Label3D.new();label.text=text;label.font_size=font_size;label.pixel_size=0.017;label.outline_size=10
+	# Decorative/result thumbnails retain the genuine train and scenery but
+	# omit route annotations that only fit the full interactive yard.
+	label.visible=not background
 	label.modulate=color;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.no_depth_test=true;label.position=position;world.add_child(label);labels.append(label);return label
 
 func _lantern(position: Vector3,lit: bool) -> Node3D:

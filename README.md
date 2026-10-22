@@ -5,7 +5,7 @@ points, collect each manifest in order, and bring the little train home through
 lantern-lit valley yards.
 
 **Development status:** gameplay source is implemented. The revised presentation
-and level-up gifts passed 577 model, 44 UI/lifecycle, 29 audio and platform service
+and level-up gifts passed 577 model, 46 UI/lifecycle, 29 audio and platform service
 checks with no strict diagnostics or warnings. Earlier hosted Linux CI also
 verified mixer-aware test teardown. The corrective APK and genuine Android
 visual/play acceptance remain pending, along with final packages and six

@@ -80,6 +80,10 @@ func run() -> void:
 	var b_screen: Vector2=app.yard.camera.unproject_position(app.yard.node_positions.P1B)
 	require(a_screen.x<b_screen.x,"A really appears left of B in the live camera")
 	require(app.dispatch_button.custom_minimum_size.y>=112,"minimum practical primary touch target")
+	app.dispatch_button.grab_focus();await process_frame
+	var focus_style: StyleBoxFlat=app.dispatch_button.get_theme_stylebox("focus","Button") as StyleBoxFlat
+	var primary_style: StyleBoxFlat=app.dispatch_button.get_theme_stylebox("normal","Button") as StyleBoxFlat
+	require(app.dispatch_button.has_focus() and not focus_style.draw_center and primary_style.bg_color==app.GOLD,"focused primary keeps its amber surface beneath a border-only focus ring")
 	app._toggle_view();require(app.yard.focused and app.view_button.text=="Fit yard","actual Train control offers a readable close view")
 	app._toggle_view();require(not app.yard.focused,"Fit yard restores the complete planned railway")
 	var before: Dictionary=app.model.snapshot();app._preview()
@@ -90,6 +94,9 @@ func run() -> void:
 		if app.scene_page=="result":break
 		app._advance();app.yard.motion=false;app.yard.travel=app.yard.target_travel;app._settle()
 	require(app.scene_page=="result","UI ordered delivery reaches result")
+	var result_annotations_hidden: bool=not app.yard.labels.is_empty()
+	for annotation in app.yard.labels:result_annotations_hidden=result_annotations_hidden and not annotation.visible
+	require(result_annotations_hidden and app.yard.engine!=null and app.yard.wagons.size()==1,"result preserves the actual completed train without overlapping world labels")
 	require(int(app.profile.data.clears)==1 and service.finished==1,"once-only UI award and service cadence")
 	var coins: int=int(app.profile.data.coins);app._complete()
 	require(int(app.profile.data.coins)==coins and service.finished==1,"repeat result cannot bank or trigger ad cadence")
