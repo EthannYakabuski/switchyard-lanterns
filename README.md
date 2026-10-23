@@ -42,7 +42,7 @@ project settings; verify the effective setting and exported manifest when changi
 to production.
 
 After a normal import, run `tests/test_rail_model.gd`, `tests/test_ui.gd`,
-`tests/test_audio_assets.gd`, and
+`tests/test_audio_assets.gd`, `tests/test_ad_load_lifetime.gd`, and
 `platform/tests/services_smoke.gd` with `--headless --path . --script <path>` in
 isolated test data directories. Never run fixtures against a genuine profile.
 The hosted workflow performs isolated checks and preserves strict errors/leak

@@ -33,8 +33,8 @@ The final source/docs commit may differ from this tested gameplay build.
 - Android Back exposed the normal exit confirmation. Save and exit returned to
   the Android launcher and preserved the genuine profile. However, its shutdown
   log reported five resources still in use and an ObjectDB leak warning. Verbose review identified retained interstitial/rewarded AdMob loader and
-  callback scripts, plus MobileSingletonPlugin. A focused ownership cleanup is
-  under review. A separate emulator EGL vertex-array diagnostic occurred at
+  callback scripts, plus MobileSingletonPlugin. A focused ownership cleanup has been applied in source and passed its
+  isolated regression checks; a replacement native build/retest is pending. A separate emulator EGL vertex-array diagnostic occurred at
   shutdown; it is recorded separately from those SDK resources.
 
 The earlier tutorial progress and level-2 gift were genuinely earned on the E79
@@ -60,3 +60,19 @@ release-eligibility assertion.
 
 Finish the shutdown investigation, relevant native regression, final archives,
 handoff, audited publication and exact-commit CI before issuing final readiness.
+
+## Focused loader ownership regression
+
+The source now uses the previously verified Room loader-lifetime adapter with
+matching vendor ownership semantics. It owns pending load tickets, cancels each
+outstanding explicit SDK reference once at shutdown, and preserves the normal
+vendor deferred decrement after success/failure. Vendor, audio, gameplay, saves
+and service IDs are unchanged. The 92-check isolated lifetime suite, service
+smoke checks and 46 UI/lifecycle checks passed locally with strict diagnostics
+preserved. Hosted CI automatically discovers the added test runner. These
+fixtures do not establish native SDK cancellation, all concurrent loaded-ad
+cleanup cases or resolution of the separate emulator EGL diagnostic.
+
+The screenshots retain their original C42/APK provenance. The source cleanup has
+not yet been accepted on a replacement Android build. Final readiness remains
+pending that native regression, archives/handoff and publication/CI.
