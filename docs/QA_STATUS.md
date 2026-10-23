@@ -2,7 +2,8 @@
 
 Status on 2026-10-23: the focused normal-exit SDK resource cleanup passed native
 verification. A separate emulator EGL shutdown error persists, so the full native
-strict-log gate is NOT clean. Final delivery remains in progress.
+strict-log gate is NOT clean. Local packaging is verified through the receipt
+below; publication/exact-source CI and owner/device acceptance remain pending.
 
 ## Pinned replacement artifacts
 
@@ -20,6 +21,17 @@ Android 21 members / Web 29 members each include 20 license/support files. Andro
 warnings included scan-thread abort, Gradle path-check/URI and manifest warnings;
 accepted does not mean warning-free. APK is debug/test, arm64-v8a + x86, not a
 production-signed release. HTML identity alone does not cover its sibling files.
+
+## Qualified local test packages
+
+Local test package location: `build/first-pass-qualified-20261023/packages/`.
+`LOCAL_PACKAGE_RECEIPT.json` identifies the verified archive hashes, exact audited
+source-package commit, unchanged a7 runtime and member inventory. If absent,
+packaging is incomplete.
+Consult and verify that receipt rather than guessing a source commit or treating
+another CI APK as the native-tested binary. Original C42 capture provenance and
+prior artifacts remain preserved. Package completion does not pass the full
+native strict-log gate, establish production/device acceptance or publish source.
 
 ## Fresh-guest actual normal exit
 
@@ -81,10 +93,11 @@ and service checks passed with strict diagnostics. Earlier
 was denied before execution; public main remains C42 at last verification. Exact
 a7/final-source public CI remains pending. Do not substitute the earlier CI result.
 
-Next: finish the separate EGL diagnosis/disposition with strict checks preserved;
-complete any justified affected native regression; finalize honest packages,
-member/hash receipts and docs; review intended commit/publication and exact CI.
-No final ready handoff is issued yet. Physical-device behavior, audible output,
+Next: verify that package receipt, then manually publish the audited intended
+source/docs commit and verify exact-source CI. Retain the EGL qualification and
+owner/device follow-up without weakening strict checks. Complete any justified regression if that investigation
+requires a change. Verify the receipt before calling local packaging complete; neither that check
+nor source CI establishes final native or production-ready acceptance. Physical-device behavior, audible output,
 interactive Web, production services and actual disconnected-device play remain
 unverified. Emulator audio is disabled. Min API 24 / target API 35 is the tested engine/export
 constraint, not current Play eligibility. Owner service setup is documented in

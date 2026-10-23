@@ -11,7 +11,11 @@ cleanup build passes local lifetime/UI/platform and Android/Web export checks;
 normal native exit now has no retained SDK resources or ObjectDB leak, with an
 unchanged genuine save. A separate Godot GLES3/emulator shutdown diagnostic
 remains qualified, and the cleanup commit awaits publication/exact-source CI.
-Final delivery is in progress. See [HANDOFF.txt](HANDOFF.txt),
+Local test package location: `build/first-pass-qualified-20261023/packages/`.
+`LOCAL_PACKAGE_RECEIPT.json` there identifies verified archive hashes and exact
+source/runtime identities. If absent, packaging is incomplete.
+Publication/exact-source CI and owner/device acceptance remain pending. This is
+not a final native-ready claim. See [HANDOFF.txt](HANDOFF.txt),
 [acceptance details](docs/QA_STATUS.md) and
 [screenshot provenance](marketing/screenshots/MANIFEST.json).
 
