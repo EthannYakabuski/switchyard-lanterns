@@ -1,0 +1,29 @@
+SWITCHYARD LANTERNS - NATIVE-PENDING TEST BUILD
+Status: IN PROGRESS. Normal SDK cleanup/save exit is verified; a separate emulator EGL shutdown error remains. The full native strict-log gate is NOT clean, and final delivery is not yet issued.
+
+PLAY
+Plan ordered freight routes through 48 authored yards/six districts. Set A/B points, Preview, Dispatch, collect the manifest and return home. Untimed planning; free Pause/Step/Undo/Reset. Daily Dispatch/goals, seven-day login, XP/level gifts, cosmetic liveries, 20 achievements and 3 records are included.
+
+PINNED TEST BUILD
+Runtime source: a7d8f776c603eca86adbb7c0ace3d9ec24191f1c
+Repository: https://github.com/EthannYakabuski/switchyard-lanterns
+Android: build/first-pass-a7d8f776-loader-cleanup-001/android/switchyard-lanterns-debug.apk
+199,784,516 bytes; SHA256: 49D9D95B776FCEF93423A7F1ED5F8BC124D599E547EF3E2EF4407BDB19D24BB7
+Web: build/first-pass-a7d8f776-loader-cleanup-001/web/index.html
+HTML SHA256: 7DC47A9852C35B8CD1619D12760E58A320C7C5BA52132B6DA274CFFEB0CE513E
+Keep all matching Web files and complete notices. Both exports passed committed-input/strict artifact gates; Android build warnings remain recorded. Debug APK, arm64-v8a + x86, Godot 4.5.1 Compatibility; Android primary, Web additional, no Windows build. Min API 24 / target API 35 is a tested engine constraint, not current Play eligibility.
+
+VERIFIED VS OPEN
+After task-host recovery, genuine backups were restored exactly. Fresh-guest a7 Home/Save and exit completed without ANR; the app process exited normally. The main save stayed BYTE-IDENTICAL at 235 brass / 126 XP with assisted yard 5 hint draft at step 0. SDK retained-resource and ObjectDB warnings were both 0 on that exit. This verifies native cleanup/save compatibility after restoration.
+The separate eglCodecCommon VAO 7 shutdown error persists even on Home-only exit. Evidence points to the upstream Godot 4.5.1 duplicate canvas-VAO deletion issue (github.com/godotengine/godot/issues/121191), also observed in another tested project. The numeric VAO owner remains unproven; the full native log is not clean.
+Earlier C42 gameplay genuinely verified ordered deliveries, once-only payouts, same-build cold draft, earned/unearned hint outcomes and interstitial neutral Resume. Those observations belong to C42, not a7. Earlier signer/host replacement used genuine restoration; restoration, cold retention and earning are distinct.
+
+IMAGES / SOURCE CI
+18 accepted raw images: six each logical phone/7-inch/10-inch, original C42/F227 APK provenance in marketing/screenshots/MANIFEST.json. They are not physical tablet tests or a7 captures. 
+Public main remains C42 at last verification; exact-source CI 39870567054 passed. Local a7 has 92 lifetime, 46 UI and service regressions passed plus accepted exports. a7 publication and its exact-source CI are pending; C42 CI does not validate the new cleanup commit.
+
+NEXT / OWNER SETUP
+Read docs/QA_STATUS.md for full evidence. Resolve or explicitly qualify the EGL error without weakening strict checks; finish affected native regression, final archives/hash inventory/docs, reviewed commit/publication and exact-source CI.
+Fresh agent: AGENTS.md, README.md, docs/DESIGN.md, game/CONTENT.md, docs/PLATFORM_SETUP.md. Achievement/record names, criteria/icons: game/catalog.json and docs/PLATFORM_CATALOG.md. IDs go in platform/config.json; PGS game_id also in export_presets.cfg. AdMob manifest App ID is project.godot [admob] general/android/app_id, separately from JSON. test_mode wording is not test-device configuration. Production IDs/signing/consent/privacy/Play publication are owner work.
+Store copy: marketing/STORE_LISTING.md and marketing/WEBSITE_COPY.md. Preserve LICENSE, NOTICE and complete LICENSES. Keep genuine profiles/backups/private logs/signing material out of Git/packages.
+Unverified: physical-device behavior, audible playback, interactive Web, production services and actual disconnected-device play. Emulator audio is disabled. New tasks do not inherit prior chat.

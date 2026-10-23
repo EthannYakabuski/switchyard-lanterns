@@ -4,13 +4,16 @@ A cozy 3D freight-routing puzzle made with Godot 4.5.1 Compatibility. Set the
 points, collect each manifest in order, and bring the little train home through
 lantern-lit valley yards.
 
-**Development status:** the current gameplay build passed hosted model, UI,
-audio, platform and Android/Web build checks. Genuine Android deliveries,
-once-only payouts, cold drafts and native earned/unearned ad returns have been
-checked separately. All 18 required screenshots are captured and reviewed.
-Final delivery remains in progress: a five-resource native shutdown diagnostic is
-being investigated, and final archives/handoff are not yet issued. See the
-[acceptance status](docs/QA_STATUS.md) and [screenshot provenance](marketing/screenshots/MANIFEST.json).
+**Development status:** genuine Android deliveries, once-only payouts, cold
+saved routes and earned/unearned ad returns have been checked. All 18 required
+screenshots are reviewed with their original build provenance. The replacement
+cleanup build passes local lifetime/UI/platform and Android/Web export checks;
+normal native exit now has no retained SDK resources or ObjectDB leak, with an
+unchanged genuine save. A separate Godot GLES3/emulator shutdown diagnostic
+remains qualified, and the cleanup commit awaits publication/exact-source CI.
+Final delivery is in progress. See [HANDOFF.txt](HANDOFF.txt),
+[acceptance details](docs/QA_STATUS.md) and
+[screenshot provenance](marketing/screenshots/MANIFEST.json).
 
 - 48 fixed authored yards across six districts, with stored solutions tested by
   the same simulator used for Preview and actual train movement.

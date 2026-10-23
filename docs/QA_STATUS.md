@@ -1,78 +1,97 @@
-# Android acceptance status
+# Android acceptance: SDK cleanup verified; EGL diagnostic open
 
-Status on 2026-10-23: final delivery is in progress. A native shutdown diagnostic
-remains open; source CI success is not a claim that every native gate passed.
+Status on 2026-10-23: the focused normal-exit SDK resource cleanup passed native
+verification. A separate emulator EGL shutdown error persists, so the full native
+strict-log gate is NOT clean. Final delivery remains in progress.
 
-## Tested build
+## Pinned replacement artifacts
 
-Gameplay source: `c42bbc4abd8f5c46c0fb06b6b7717a54fe0caeb5`.
-[Exact-source CI passed](https://github.com/EthannYakabuski/switchyard-lanterns/actions/runs/39870567054):
-577 model checks including all 48 authored solutions, 46 UI/lifecycle checks,
-29 audio checks, platform contracts, Android/Web exports and notices. The Android
-export included a scan-thread warning. Strict resource/error checks remain enabled.
+Runtime source: `a7d8f776c603eca86adbb7c0ace3d9ec24191f1c`.
+Accepted export root: `build/first-pass-a7d8f776-loader-cleanup-001/`.
 
-Tested CI debug APK: `build/first-pass-ci-c42bbc4a-run39870567054/android/game-debug.apk`.
-SHA256: `F2274B8013A5165445BE0036B9C554A8CE5D6C29746B2CD892348E3237BC11D8`.
-The final source/docs commit may differ from this tested gameplay build.
+- Android `android/switchyard-lanterns-debug.apk`:199,784,516bytes; SHA256
+  `49D9D95B776FCEF93423A7F1ED5F8BC124D599E547EF3E2EF4407BDB19D24BB7`.
+- Web `web/index.html`: SHA256
+  `7DC47A9852C35B8CD1619D12760E58A320C7C5BA52132B6DA274CFFEB0CE513E`.
+  Keep all 29 verified Web bundle members and complete matching notices.
 
-## Genuine native observations
+Both exports passed pinned-source/stable-input, strict-error and bundle gates.
+Android 21 members / Web 29 members each include 20 license/support files. Android
+warnings included scan-thread abort, Gradle path-check/URI and manifest warnings;
+accepted does not mean warning-free. APK is debug/test, arm64-v8a + x86, not a
+production-signed release. HTML identity alone does not cover its sibling files.
 
-- A mid-route draft survived a cold launch of this same APK with byte-identical
-  profile data at the checked point. No restoration was used for that cold check.
-- The first non-tutorial ordered delivery completed unassisted with three stars,
-  seven steps and two wagons. It added 55 brass/33 XP, taking the genuine bank
-  from 130/63 to 185/96. Closing the result added nothing further.
-- The next yard completed with three stars and one wagon, adding 50 brass/30 XP
-  for 235 brass/126 XP, four total clears and six wagons. Its real test
-  interstitial returned to a neutral Resume prompt. Resume and result close
-  left the saved award unchanged.
-- One real rewarded-hint dismissal was unearned and granted nothing. A separate
-  completion attempt received the native earned event and saved an assisted hint.
-  The train stayed at step zero behind the endcard and after dismissal, with no
-  brass/XP change. Explicit neutral Resume was required; Back saved that draft.
-- Android Back exposed the normal exit confirmation. Save and exit returned to
-  the Android launcher and preserved the genuine profile. However, its shutdown
-  log reported five resources still in use and an ObjectDB leak warning. Verbose review identified retained interstitial/rewarded AdMob loader and
-  callback scripts, plus MobileSingletonPlugin. A focused ownership cleanup has been applied in source and passed its
-  isolated regression checks; a replacement native build/retest is pending. A separate emulator EGL vertex-array diagnostic occurred at
-  shutdown; it is recorded separately from those SDK resources.
+## Fresh-guest actual normal exit
 
-The earlier tutorial progress and level-2 gift were genuinely earned on the E79
-predecessor build. Its 130-brass/63-XP profile was restored exactly when the debug
-signer changed. This is restoration across that replacement, separately from the
-same-C42 cold-retention evidence; no progression or reward was manufactured.
+After user-assisted task-host recovery, all current genuine profiles were restored
+exactly from verified backups. This is restoration across host restart, not
+retention in a discarded transient session. On the restored fresh guest:
 
-## Screenshots and remaining limits
+- a7 Home and normal Save and exit completed without System UI ANR.
+- The application process exited normally.
+- Retained SDK-resource warnings: 0. ObjectDB leak warnings: 0.
+- The main save was byte-identical before/after exit, retaining 235 brass / 126 XP and
+  the assisted yard 5 hint draft at step 0. No reward, claim or train movement was
+  replayed to produce this observation.
 
-`marketing/screenshots/` has six unaltered real views per phone, seven-inch and
-ten-inch logical emulator profile: Home, campaign, planned yard, cargo play,
-genuine result and progression. The manifest records actual pixel hashes and
-source/APK provenance. These are display profiles, not physical tablet tests.
-The task display overrides were restored after captures.
+This closes the previously observed five-SDK-script/ObjectDB warning for the
+checked normal exit. It is actual native evidence, not only the lifetime fixture.
+It does not establish every possible concurrent loaded-ad ownership scenario or
+repeat all earlier gameplay/ad flows on a7.
 
-Physical-device behavior, audible balance/looping, interactive Web play,
-production services and an actual disconnected-device session remain unverified.
-The emulator has audio output disabled. Imported loop metadata and source
-fixtures do not establish audible output or native offline behavior. Production
-IDs, signing, consent/privacy declarations and Google Play publication remain
-owner work. Min API 24/target API 35 are tested engine export constraints, not a
-release-eligibility assertion.
+A separate `eglCodecCommon` VAO 7 shutdown error persists even on Home-only exit.
+It is independent of the now-zero SDK resource diagnostics. Read-only diagnosis
+is continuing; no cause or fix is claimed. Do not suppress it, infer an audio
+cause, or describe the full native strict-log gate as clean. Earlier ANRs occurred
+before host recovery; they are not the current Home/exit result. No device
+performance or broad stability claim follows from this short check.
 
-Finish the shutdown investigation, relevant native regression, final archives,
-handoff, audited publication and exact-commit CI before issuing final readiness.
+## Earlier genuine gameplay and screenshot provenance
 
-## Focused loader ownership regression
+C42 source: `c42bbc4abd8f5c46c0fb06b6b7717a54fe0caeb5`; original CI APK SHA256
+`F2274B8013A5165445BE0036B9C554A8CE5D6C29746B2CD892348E3237BC11D8`.
+Separate genuine C42 observations:
 
-The source now uses the previously verified Room loader-lifetime adapter with
-matching vendor ownership semantics. It owns pending load tickets, cancels each
-outstanding explicit SDK reference once at shutdown, and preserves the normal
-vendor deferred decrement after success/failure. Vendor, audio, gameplay, saves
-and service IDs are unchanged. The 92-check isolated lifetime suite, service
-smoke checks and 46 UI/lifecycle checks passed locally with strict diagnostics
-preserved. Hosted CI automatically discovers the added test runner. These
-fixtures do not establish native SDK cancellation, all concurrent loaded-ad
-cleanup cases or resolution of the separate emulator EGL diagnostic.
+- Same-build cold mid-route draft retained byte-identical data without restore.
+- Yard 3 unassisted three-star delivery: 7 steps / 2 wagons, +55 brass / +33 XP; result close
+  paid nothing further. Yard 4 three stars/1 wagon, +50 / +30, ending 235 / 126 with 4 clears
+  and 6 wagons.
+- Real test interstitial returned to neutral Resume; Resume/result close preserved
+  the award.
+- Unearned hint dismissal granted nothing. Separate actual earned hint saved
+  behind the endcard while train stayed at step 0; dismissal required explicit
+  Resume, and Back saved the assisted draft with no brass/XP change.
+- Normal C42 exit saved but reported five retained SDK script resources/ObjectDB
+  warning, motivating the now-tested lifetime cleanup. Its separate EGL message
+  is not claimed cured by that fix.
 
-The screenshots retain their original C42/APK provenance. The source cleanup has
-not yet been accepted on a replacement Android build. Final readiness remains
-pending that native regression, archives/handoff and publication/CI.
+Earlier E79 tutorial/level gift progress was genuinely earned then restored across
+signer replacement. Earning, restoration and cold retention remain separate.
+All 18 accepted unaltered screenshots retain C42/APK provenance in
+`marketing/screenshots/MANIFEST.json`: six each logical phone/seven-inch/ten-inch,
+not physical tablets or a7 images. Original display/rotation overrides are restored.
+
+## Source checks, publication and remaining work
+
+The Room-matched adapter changes pending-loader ownership, not vendor files,
+gameplay, saves, audio, renderer or service IDs. Local 92 lifetime, 46 UI/lifecycle
+and service checks passed with strict diagnostics. Earlier
+[C42 CI 39870567054 passed](https://github.com/EthannYakabuski/switchyard-lanterns/actions/runs/39870567054):
+577 model / all 48 solutions, 46 UI, 29 audio, services, exports/notices. The a7 public push
+was denied before execution; public main remains C42 at last verification. Exact
+a7/final-source public CI remains pending. Do not substitute the earlier CI result.
+
+Next: finish the separate EGL diagnosis/disposition with strict checks preserved;
+complete any justified affected native regression; finalize honest packages,
+member/hash receipts and docs; review intended commit/publication and exact CI.
+No final ready handoff is issued yet. Physical-device behavior, audible output,
+interactive Web, production services and actual disconnected-device play remain
+unverified. Emulator audio is disabled. Min API 24 / target API 35 is the tested engine/export
+constraint, not current Play eligibility. Owner service setup is documented in
+`docs/PLATFORM_SETUP.md`; publication/signing/privacy/backend values remain owner
+configuration. No public raw logs, private paths, profiles or process IDs belong
+in this document or the package.
+
+## GLES3 shutdown qualification
+
+The observed `eglCodecCommon` VAO 7 diagnostic remains in the normal native exit log. Godot 4.5.1 contains a duplicated canvas-VAO deletion in its [GLES3 destructor](https://github.com/godotengine/godot/blob/4.5.1-stable/drivers/gles3/rasterizer_canvas_gles3.cpp#L2624-L2638), tracked [upstream](https://github.com/godotengine/godot/issues/121191). This strongly fits the emulator client-state message, but the numeric VAO owner was not mapped by a call stack. No engine, renderer, GPU setting or logging check was changed. The SDK retained-resource warning is separately verified resolved. The full native strict-log gate remains false.
