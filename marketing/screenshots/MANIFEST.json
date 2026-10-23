@@ -1,0 +1,118 @@
+{
+  "source_commit": "c42bbc4abd8f5c46c0fb06b6b7717a54fe0caeb5",
+  "apk_sha256": "F2274B8013A5165445BE0036B9C554A8CE5D6C29746B2CD892348E3237BC11D8",
+  "ci_run": 39870567054,
+  "ci_run_url": "https://github.com/EthannYakabuski/switchyard-lanterns/actions/runs/39870567054",
+  "logical_emulator_profiles_not_physical_devices": true,
+  "unaltered_raw_pixels": true,
+  "images": [
+    {
+      "path": "marketing/screenshots/phone/01-home.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "FE8EA6774B8873D838DC2078EFF26F8E1D427E83025024DB723BA30C20F91DF3"
+    },
+    {
+      "path": "marketing/screenshots/phone/02-campaign.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "B680D714741A6831A57326AB1BEC58B9F4A894C7C41AE730EDA2637C7A90C914"
+    },
+    {
+      "path": "marketing/screenshots/phone/03-planned-yard.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "07D4766971A71FD10BBE2A15343215F6FEBD92FC5F75B3C9FE821F45F89E7927"
+    },
+    {
+      "path": "marketing/screenshots/phone/04-cargo-play.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "696955A166256ECDF2CBDA22A1DE5506C9CA01E9D3DA640763367C7FDDDF5DB6"
+    },
+    {
+      "path": "marketing/screenshots/phone/05-genuine-result.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "61E21C01CDFA3EF797AC25AE843C5A486549275EB14D57EA7664C9095BFB38B9"
+    },
+    {
+      "path": "marketing/screenshots/phone/06-progression-journal.png",
+      "width": 1080,
+      "height": 1920,
+      "sha256": "A7E8116CEC012571E3EC752E4C759AE68C08B0BBADA9D61DFF68A99F238B9F00"
+    },
+    {
+      "path": "marketing/screenshots/seven-inch/01-home.png",
+      "width": 1200,
+      "height": 1920,
+      "sha256": "792AA84E45AFE76CF03A63DCA4342B3910E002D88D6C7C3EC2867CF71D3B6E02"
+    },
+    {
+      "path": "marketing/screenshots/seven-inch/02-campaign.png",
+      "width": 1200,
+      "height": 1920,
+      "sha256": "CFF77628BD7393A37CD6835DF88E483A218041EA4721F3EBD7393DD8CA7CD6F2"
+    },
+    {
+      "path": "marketing/screenshots/seven-inch/03-planned-yard.png",
+      "width": 1200,
+      "height": 1920,
+      "sha256": "5FF04A04150901A416F7C2349D8215E52CBEFD0E913CD533C23260FA368986EA"
+    },
+    {
+      "path": "marketing/screenshots/seven-inch/04-cargo-play.png",
+      "width": 1200,
+      "height": 1920,
+      "sha256": "FD0A2F907253051B4FC1CB39A232D4DF0B87E47BF91D8FA884AC8F3F8BED44DD"
+    },
+    {
+      "path": "marketing/screenshots/seven-inch/05-genuine-result.png",
+      "width": 1200,
+      "height": 1920,
+      "sha256": "5C7BA7AE3B74AFADF364F159A5F3E3FC305DAC3A142110968FAFE01AC3747DF0"
+    },
+    {
+      "path": "marketing/screenshots/seven-inch/06-progression-journal.png",
+      "width": 1200,
+      "height": 1920,
+      "sha256": "C881CB5D8DBC008D62DA1C8E53D2CDC4B9EEE04584FF149DB136C1C1A192131D"
+    },
+    {
+      "path": "marketing/screenshots/ten-inch/01-home.png",
+      "width": 1600,
+      "height": 2560,
+      "sha256": "233C5C08E1CE780BCE2E0D675EAAAEE7CC12726BD2AF6998E71921A557FEEC3D"
+    },
+    {
+      "path": "marketing/screenshots/ten-inch/02-campaign.png",
+      "width": 1600,
+      "height": 2560,
+      "sha256": "BA6F0B57D6129614FCAA33C72BA1644A9CBA97609B442255FCA9BC84F78CA500"
+    },
+    {
+      "path": "marketing/screenshots/ten-inch/03-planned-yard.png",
+      "width": 1600,
+      "height": 2560,
+      "sha256": "E76E9A77DAE7CD5D8BD293A244C299857EA24E482CB1E01DD21F3BB66DDF567E"
+    },
+    {
+      "path": "marketing/screenshots/ten-inch/04-cargo-play.png",
+      "width": 1600,
+      "height": 2560,
+      "sha256": "55BB8182899AA1B00C93AC7768F73FDB4633B6E4C3BE882BDBB58F0A1A579A82"
+    },
+    {
+      "path": "marketing/screenshots/ten-inch/05-genuine-result.png",
+      "width": 1600,
+      "height": 2560,
+      "sha256": "E1A6425E29EC804055EF0D3363B49899363012F1CB65E6E7BEBF22F187A6CCF9"
+    },
+    {
+      "path": "marketing/screenshots/ten-inch/06-progression-journal.png",
+      "width": 1600,
+      "height": 2560,
+      "sha256": "8669A7AA58A4E15FF771ADFB46CC7A481B45F9693A38D29AF7FA60EAB2C2B12B"
+    }
+  ]
+}
