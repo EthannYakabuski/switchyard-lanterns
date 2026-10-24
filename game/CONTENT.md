@@ -1,7 +1,7 @@
 # Authored railway content
 
-`boards.json` is the campaign source of truth: 48 fixed yards in six districts,
-eight per district. There is no random campaign generator at runtime. Each yard
+`boards.json` is the campaign source of truth: 100 fixed yards in thirteen districts: twelve groups of eight plus a four-yard
+finale. There is no random campaign generator at runtime. Each yard
 contains its actual node positions, directed track connections, cargo sequence,
 opening points, stored solution switches, expected solution trace and par steps.
 The branch routes include distinct merges, buffers, sidings and early station
@@ -17,7 +17,7 @@ and Reset. There is no multi-train collision simulation.
 Editing a yard requires updating its real graph and solving it through that same
 model. The mandatory `tests/test_rail_model.gd` checks every complete stored
 solution, trace, order, preview immutability and a full-state fingerprint against
-the other 47 yards. A passing source fixture is not a native-play claim.
+the other 99 yards. A passing source fixture is not a native-play claim.
 
 The camera fits the projected rail, train and label envelope of its actual live
 viewport, rather than an oversized floor. Train/Fit controls retain an optional
@@ -54,3 +54,5 @@ Pack assets are inventoried under `assets/kenney/manifest.json`; their complete
 CC0 notices are in `LICENSES/Assets`. Actual art/audio provenance lives in the
 separate art/audio documentation. Native builds, captures and final handoff
 acceptance are recorded by the coordinator, separately from these source tests.
+
+Round Four extension/energy/observer-control rules: [docs/ROUND_FOUR.md](../docs/ROUND_FOUR.md).

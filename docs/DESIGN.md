@@ -1,3 +1,5 @@
+Current implemented Round Four changes supersede the historical initial vector below; see [ROUND_FOUR.md](ROUND_FOUR.md).
+
 # Switchyard Lanterns - initial vector
 Build a complete cozy portrait 3D rail-routing and ordered-freight puzzle, package com.ethannyakabuski.switchyardlanterns. Route a little locomotive through a lantern-lit valley, set visible turnouts, collect wagons in the pictured requested order and dispatch them home. Use a single deterministic rail-graph simulator for route validation, visible train/cargo movement, collision/dead-end/wrong-order feedback and results. Do not claim a freeform push-pull/uncoupling simulator unless implemented.
 Planning is untimed and uses large one-hand tap controls: turnout A/B chips mirrored by world hotspots, explicit route preview, Dispatch/Pause/Step and unlimited Undo/Reset. No joystick, simultaneous touches or twitch timing required. Point changes occur only while safely paused. Requested freight uses shape+name+color, and actual loaded wagons visibly join the train in model order. Optional animation speed never changes simulation outcomes.

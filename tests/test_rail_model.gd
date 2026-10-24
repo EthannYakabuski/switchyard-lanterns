@@ -22,7 +22,7 @@ func _initialize() -> void:
 func run() -> void:
 	var content: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://game/boards.json"))
 	var boards: Array = content.boards
-	require(boards.size()==48,"48 authored yards")
+	require(boards.size()==100,"100 authored yards")
 	var fingerprints := {}
 	for board in boards:
 		var model := Model.new(); model.begin(board,board.solution)
@@ -140,7 +140,7 @@ func run() -> void:
 	bridge=null;history_model=null;cold=null
 	teaching=null;order=null;pause=null;profile=null;loaded=null;backup=null
 	faulty=null
-	if failures==0:print("SWITCHYARD MODEL PASS: %d meaningful checks, all 48 authored solutions." % checks)
+	if failures==0:print("SWITCHYARD MODEL PASS: %d meaningful checks, all 100 authored solutions." % checks)
 	else:print("SWITCHYARD MODEL FAIL: %d of %d checks failed."%[failures,checks])
 	await process_frame
 	quit(0 if failures==0 else 1)

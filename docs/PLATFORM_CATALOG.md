@@ -25,7 +25,7 @@
 | daily_seven | Seven Days of Freight | Complete Daily Dispatches on seven different dates. (daily_clears >= 7) | marketing/achievements/daily_seven.png |
 | level_five | Lantern Warden | Reach dispatcher level 5. (level >= 5) | marketing/achievements/level_five.png |
 | level_ten | Valley Steward | Reach dispatcher level 10. (level >= 10) | marketing/achievements/level_ten.png |
-| all_yards | Every Light Is Home | Complete all 48 authored campaign yards. (campaign_cleared >= 48) | marketing/achievements/all_yards.png |
+| all_yards | Every Light Is Home | Complete all 100 authored campaign yards. (campaign_cleared >= 100) | marketing/achievements/all_yards.png |
 
 ## Leaderboards
 

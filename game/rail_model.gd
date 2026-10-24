@@ -89,7 +89,7 @@ func set_point(key: String, branch: int) -> bool:
 		if trace[trace.size()-1-i] == key: return false
 	if int(points[key]) == branch: return true
 	_remember(); points[key] = clampi(branch,0,1)
-	message = "%s → %s" % [key, "A" if branch == 0 else "B"]
+	message = "%s → %s" % [key, choice_label(board,key,branch)]
 	return true
 
 func dispatch() -> bool:
@@ -168,3 +168,20 @@ func stars() -> int:
 	if not assisted and steps <= int(board.get("par_steps",999)): total += 1
 	if not assisted and undo_count == 0: total += 1
 	return total
+
+
+static func choice_label(definition: Dictionary,key: String,choice: int) -> String:
+	# Observer direction is the screen horizontal projection of the actual fork,
+	# not locomotive heading. The fixed camera looks from +X,+Z, so its right
+	# vector is proportional to (29, -8) in ground X/Z coordinates.
+	var exits: Array=[]
+	for edge in definition.get("edges",[]):
+		if str(edge.a)==key:exits.append(edge)
+	if exits.size()!=2:return "L" if choice==0 else "R"
+	var scores: Array[float]=[]
+	for edge in exits:
+		var first: Array=edge.points[0]
+		var next: Array=edge.points[mini(1,edge.points.size()-1)]
+		scores.append((float(next[0])-float(first[0]))*29.0-(float(next[1])-float(first[1]))*8.0)
+	var left: int=0 if scores[0]<=scores[1] else 1
+	return "L" if choice==left else "R"

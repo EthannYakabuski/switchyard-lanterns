@@ -6,7 +6,7 @@ Candidate copy for the full first-pass game; verify the final build and HANDOFF 
 
 **Set the points. Light the route.**
 
-A cozy 3D train puzzle about thoughtful routes and perfectly ordered freight. Guide a little locomotive through 48 authored yards, collect every wagon in its pictured order and bring the whole train home.
+A cozy 3D train puzzle about thoughtful routes and perfectly ordered freight. Guide a little locomotive through 100 authored yards, collect every wagon in its pictured order and bring the whole train home.
 
 **Primary call to action:** Play Switchyard Lanterns
 
@@ -20,7 +20,7 @@ Read the yard, tap the turnouts and preview your plan. Untimed planning, Pause, 
 
 ### Put every wagon in its place
 
-Freight is more than a destination: its order matters. Work through 48 yards across six districts, then return for three-star mastery and an unassisted record worth keeping.
+Freight is more than a destination: its order matters. Work through 100 yards across thirteen districts, then return for three-star mastery and an unassisted record worth keeping.
 
 ### A little railway worth coming home to
 
@@ -44,7 +44,7 @@ Do not turn source/export support into a claim of physical-device, browser-inter
 
 **Page title:** Switchyard Lanterns | Cozy 3D Train & Freight Puzzle
 
-**Meta description:** Plan a lantern-lit railway, set the points and collect wagons in order. Discover 48 authored train puzzles across six districts in Switchyard Lanterns.
+**Meta description:** Plan a lantern-lit railway, set the points and collect wagons in order. Discover 100 authored train puzzles across thirteen districts in Switchyard Lanterns.
 
 **URL slug:** `switchyard-lanterns`
 

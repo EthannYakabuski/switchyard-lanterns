@@ -1,5 +1,5 @@
 extends Control
-## Portrait dispatcher UI. No joystick, twitch timing, or paid progression gates.
+## Portrait dispatcher UI with saved energy and genuine native reward callbacks.
 const Rail = preload("res://game/rail_model.gd")
 const Profile = preload("res://game/profile.gd")
 const Yard = preload("res://scripts/yard.gd")
@@ -58,12 +58,14 @@ var music_key := ""
 var soundtrack: Dictionary = {}
 var sfx: Dictionary = {}
 var auto_clock := 0.0
+var home_backdrop: TextureRect
+var energy_button: Button
 
 func _ready() -> void:
 	get_tree().auto_accept_quit=false
 	content=JSON.parse_string(FileAccess.get_file_as_string("res://game/boards.json"))
 	catalog=JSON.parse_string(FileAccess.get_file_as_string("res://game/catalog.json"))
-	profile=Profile.new();profile.load_file();profile.rollover(_today())
+	profile=Profile.new();profile.load_file();profile.rollover(_today());profile.refresh_energy()
 	_setup_audio();_setup_theme();_shell()
 	services.menu_bottom_reserve_changed.connect(_banner_space)
 	services.availability_changed.connect(_availability)
@@ -92,6 +94,7 @@ func _setup_theme() -> void:
 	skin.set_constant("separation","VBoxContainer",16);skin.set_constant("separation","HBoxContainer",14)
 	theme=skin
 	var backdrop:=ColorRect.new();backdrop.color=INK;backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);backdrop.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(backdrop)
+	home_backdrop=TextureRect.new();home_backdrop.name="MenuValleyIllustration";home_backdrop.texture=load("res://assets/art/menu-valley-r4.png") as Texture2D;home_backdrop.expand_mode=TextureRect.EXPAND_IGNORE_SIZE;home_backdrop.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_COVERED;home_backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);home_backdrop.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(home_backdrop)
 
 func _shell() -> void:
 	var margin:=MarginContainer.new();margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -144,6 +147,7 @@ func _clear(page: String,title: String,menu: bool=true) -> VBoxContainer:
 		child.process_mode=Node.PROCESS_MODE_DISABLED;child.queue_free()
 	point_buttons.clear();action_buttons.clear();status_label=null;manifest_label=null;reward_button=null;dispatch_button=null;step_button=null;undo_button=null
 	scene_page=page;nav_title.text=title
+	home_backdrop.visible=page=="home"
 	services.set_menu_visible(menu);_banner_space();_wallet()
 	var column:=VBoxContainer.new();column.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);body.add_child(column);return column
 
@@ -152,7 +156,8 @@ func _scroll(column: VBoxContainer) -> VBoxContainer:
 	var list:=VBoxContainer.new();list.size_flags_horizontal=Control.SIZE_EXPAND_FILL;list.add_theme_constant_override("separation",18);scroll.add_child(list);return list
 
 func _wallet() -> void:
-	wallet.text="Lv %d dispatcher   •   %d XP   •   %d brass" % [profile.level(),int(profile.data.xp),int(profile.data.coins)]
+	profile.refresh_energy()
+	wallet.text="Energy %d/%d  |  Lv %d dispatcher   •   %d XP   •   %d brass" % [int(profile.data.energy),Profile.ENERGY_MAX,profile.level(),int(profile.data.xp),int(profile.data.coins)]
 
 func _banner_space() -> void:
 	if is_instance_valid(banner_pad):banner_pad.custom_minimum_size.y=float(services.menu_bottom_reserve(self))
@@ -160,6 +165,7 @@ func _banner_space() -> void:
 func _availability() -> void:
 	_banner_space()
 	if is_instance_valid(reward_button):reward_button.disabled=not services.can_reward()
+	if is_instance_valid(energy_button):energy_button.disabled=not services.can_reward()
 
 func _toast(text: String) -> void:
 	if is_instance_valid(notice):notice.text=text;notice.visible=not text.is_empty()
@@ -203,12 +209,14 @@ func _show_home() -> void:
 	var head:=_panel(column,PANEL,16)
 	head.add_child(_label("Set the points. Light the route.",32,GOLD))
 	head.add_child(_paragraph("Untimed railway puzzles. Every wagon in its place.",25))
-	_brand_hero(column)
+	var valley_space:=Control.new();valley_space.custom_minimum_size.y=200;valley_space.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(valley_space)
 	var buttons:=VBoxContainer.new();column.add_child(buttons)
+	var energy:=_panel(buttons,PANEL,12);energy.add_child(_paragraph("2 energy per new yard. +1 per delivery, +3 per level. Restore 1 every 5 minutes, including while away. Continue, Undo and Reset are free.",24))
+	energy_button=_button("Refill energy (ad)",_request_energy);energy_button.disabled=not services.can_reward();energy.add_child(energy_button)
 	if not profile.data.draft.is_empty():
-		var continue_row:=HBoxContainer.new();buttons.add_child(continue_row);continue_row.add_child(_button("Continue route",_continue_route));continue_row.add_child(_button("Campaign - 48 yards",_show_campaign))
+		var continue_row:=HBoxContainer.new();buttons.add_child(continue_row);continue_row.add_child(_button("Continue route",_continue_route));continue_row.add_child(_button("Campaign - 100 yards",_show_campaign))
 	else:
-		var campaign:=_button("Campaign - 48 lantern yards",_show_campaign);_primary(campaign);buttons.add_child(campaign)
+		var campaign:=_button("Campaign - 100 lantern yards",_show_campaign);_primary(campaign);buttons.add_child(campaign)
 	var row:=HBoxContainer.new();buttons.add_child(row)
 	row.add_child(_button("Daily freight",_show_daily));row.add_child(_button("Keeper's journal",_show_journal))
 	var last:=HBoxContainer.new();buttons.add_child(last)
@@ -216,14 +224,16 @@ func _show_home() -> void:
 
 func _show_campaign() -> void:
 	var column:=_clear("campaign","VALLEY TIMETABLE")
-	column.add_child(_paragraph("Every delivery opens the next yard. Retry, plan, preview and Undo freely. Three stars reward an unassisted clean route.",27))
+	column.add_child(_paragraph("Every delivery opens the next yard. New loads cost 2 energy; Continue, Reset and Undo are free. Three stars reward an unassisted clean route.",27))
 	var list:=_scroll(column)
-	for district_index in range(6):
+	for district_index in range(content.districts.size()):
 		var section:=_panel(list)
 		section.add_child(_label(str(content.districts[district_index].name).to_upper(),32,GOLD))
 		var grid:=GridContainer.new();grid.columns=2;grid.add_theme_constant_override("h_separation",14);grid.add_theme_constant_override("v_separation",14);section.add_child(grid)
 		for offset in range(8):
-			var index:=district_index*8+offset;var board: Dictionary=content.boards[index]
+			var index:=district_index*8+offset
+			if index>=content.boards.size():break
+			var board: Dictionary=content.boards[index]
 			var record: Dictionary=profile.data.records.get(board.id,{})
 			var stars: int=int(record.get("stars",0))
 			var button:=_button("%02d  %s\n%s"%[index+1,str(board.title),"★".repeat(stars)+"☆".repeat(3-stars)],_start_board.bind(index,false),0,142)
@@ -260,7 +270,7 @@ func _level_gift_text(before: int,after: int) -> String:
 func _show_journal() -> void:
 	var column:=_clear("journal","KEEPER'S JOURNAL");var list:=_scroll(column)
 	var stats:=profile.stats(content.boards)
-	var summary:=_panel(list);summary.add_child(_label("YOUR RAILWAY",34,GOLD));summary.add_child(_paragraph("%d / 48 yards  •  %d / 144 unassisted stars\n%d wagons delivered  •  %d dispatches\nDispatcher level %d  •  %d daily routes"%[stats.campaign_cleared,stats.campaign_stars,stats.cargo_total,stats.clears,stats.level,stats.daily_clears]))
+	var summary:=_panel(list);summary.add_child(_label("YOUR RAILWAY",34,GOLD));summary.add_child(_paragraph("%d / 100 yards  •  %d / 300 unassisted stars\n%d wagons delivered  •  %d dispatches\nDispatcher level %d  •  %d daily routes"%[stats.campaign_cleared,stats.campaign_stars,stats.cargo_total,stats.clears,stats.level,stats.daily_clears]))
 	var services_row:=HBoxContainer.new();summary.add_child(services_row);services_row.add_child(_button("Sign in to Play Games",func():services.sign_in()));services_row.add_child(_button("Native achievements",func():services.open_achievements()))
 	for achievement in catalog.achievements:
 		var row:=_panel(list);var box:=HBoxContainer.new();row.add_child(box)
@@ -303,15 +313,18 @@ func _show_help() -> void:
 	for title_text in ["1  Read the manifest","2  Set the points","3  Preview, then Dispatch","4  Pause or Step","5  Deliver home"]:
 		card.add_child(_label(title_text,34,GOLD))
 		var index: int=["1  Read the manifest","2  Set the points","3  Preview, then Dispatch","4  Pause or Step","5  Deliver home"].find(title_text)
-		card.add_child(_paragraph(["Collect the pictured wagons left to right. Parcel crates, blue mail, timber logs and water tanks have names as well as colors.","Each numbered turnout has A (left siding) and B (right siding) exits. Tap its large chip or its world lantern to choose. Points beneath the train stay locked; plan ahead or Undo.","The brass trail previews the same simulator used by your train. It tells you where the route ends without changing your save.","Pause freezes the railway. Step travels one track connection. Unlimited free Undo and Reset let you learn without losing brass.","Reach Lantern station with exactly the requested wagons. Earn XP, brass and optional mastery stars. Three-star routes use no hint or Undo."][index]))
+		card.add_child(_paragraph(["Collect the pictured wagons left to right. Parcel crates, blue mail, timber logs and water tanks have names as well as colors.","Each numbered turnout has L (screen-left) and R (screen-right) exits from your viewpoint, independent of train direction. Tap its large chip or its world lantern to choose. Points beneath the train stay locked; plan ahead or Undo.","The brass trail previews the same simulator used by your train. It tells you where the route ends without changing your save.","Pause freezes the railway. Step travels one track connection. Unlimited free Undo and Reset let you learn without losing brass.","Reach Lantern station with exactly the requested wagons. Earn XP, brass and optional mastery stars. Three-star routes use no hint or Undo."][index]))
 	card.add_child(_button("Start the first lantern yard",_start_board.bind(0,false)))
 
 func _start_board(index: int,is_daily: bool) -> void:
-	var next_id: String=profile.new_run(str(content.boards[index].id),is_daily)
-	if next_id=="":_toast("Cannot save a new dispatch. Check available device storage and retry.");return
-	board_index=index;daily=is_daily;model=Rail.new();model.begin(content.boards[index]);run_id=next_id
+	var candidate:=Rail.new();candidate.begin(content.boards[index])
+	var initial_state: Dictionary=candidate.snapshot();initial_state.undo_history=[]
+	var draft: Dictionary={"index":index,"daily":is_daily,"run_id":"","state":initial_state,"hint":""}
+	var next_id: String=profile.new_run(str(content.boards[index].id),is_daily,draft)
+	if next_id=="":_toast("A new yard needs 2 energy and a saved ticket. Wait for recharge or refill on Home; check storage if energy is available.");_wallet();return
+	board_index=index;daily=is_daily;model=candidate;run_id=next_id
 	hinted_text="";result_award={};pending_event={};is_dispatching=false;step_animating=false
-	_save_draft();_show_game()
+	_show_game()
 
 func _continue_route() -> void:
 	var draft: Dictionary=profile.data.draft
@@ -328,7 +341,8 @@ func _show_game() -> void:
 	_music(str(content.districts[int(model.board.district)].music))
 	var manifest_card:=_panel(column,Color("263e4c"),12);manifest_card.add_theme_constant_override("separation",6)
 	manifest_chips.clear()
-	var manifest_row:=HBoxContainer.new();manifest_row.add_theme_constant_override("separation",8);manifest_card.add_child(manifest_row)
+	var manifest_scroll:=ScrollContainer.new();manifest_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;manifest_scroll.custom_minimum_size.y=112;manifest_card.add_child(manifest_scroll)
+	var manifest_row:=HBoxContainer.new();manifest_row.add_theme_constant_override("separation",8);manifest_scroll.add_child(manifest_row)
 	manifest_label=_label("LOAD",25,GOLD);manifest_label.custom_minimum_size=Vector2(78,84);manifest_label.vertical_alignment=VERTICAL_ALIGNMENT_CENTER;manifest_row.add_child(manifest_label)
 	var cargo_icons: Dictionary={"R":"parcel","B":"mail","L":"timber","T":"water"}
 	for i in range(model.board.manifest.size()):
@@ -340,13 +354,14 @@ func _show_game() -> void:
 		cell.add_child(picture)
 		var chip:=_label("",22,CREAM);chip.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;cell.add_child(chip);manifest_chips.append(chip)
 	if model.board.tutorial:
-		manifest_card.add_child(_paragraph("A is left. B is right. Preview the brass route, then Dispatch." if board_index==0 else "Set both points before leaving. Pause, Step and free Undo let you learn safely.",22,GOLD))
+		manifest_card.add_child(_paragraph("L is screen-left. R is screen-right. Preview the brass route, then Dispatch." if board_index==0 else "Set both points before leaving. Pause, Step and free Undo let you learn safely.",22,GOLD))
 	elif bool(model.board.get("has_capacity_limits",false)):
 		manifest_card.add_child(_paragraph("Bridge MAX = wagons already coupled. The engine does not count.",22,GOLD))
 	yard=Yard.new();yard.custom_minimum_size.y=300;yard.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(yard);yard.build(model.board,content.districts[int(model.board.district)],content.cargo);yard.sync_snapshot(model.snapshot())
 	yard.apply_livery(int(profile.data.settings.livery));yard.point_requested.connect(_toggle_point)
 	status_label=_paragraph(model.message,25,CREAM);status_label.custom_minimum_size.y=42;column.add_child(status_label)
-	var point_row:=HBoxContainer.new();point_row.add_theme_constant_override("separation",10);column.add_child(point_row)
+	var point_scroll:=ScrollContainer.new();point_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;point_scroll.custom_minimum_size.y=136;column.add_child(point_scroll)
+	var point_row:=HBoxContainer.new();point_row.add_theme_constant_override("separation",10);point_scroll.add_child(point_row)
 	for key in model.points:
 		var button:=_button(str(key),_toggle_point.bind(str(key)),112,112);button.add_theme_font_size_override("font_size",26)
 		if model.points.size()<=2:button.size_flags_horizontal=Control.SIZE_SHRINK_BEGIN
@@ -419,7 +434,9 @@ func _undo() -> void:
 
 func _reset() -> void:
 	if is_dispatching or step_animating:return
-	_start_board(board_index,daily)
+	var kept_assistance: bool=model.assisted
+	model.begin(content.boards[board_index]);model.assisted=kept_assistance;hinted_text="";pending_event={};step_animating=false
+	_save_draft();_show_game()
 
 func _save_draft() -> void:
 	if model==null or model.status=="won":return
@@ -432,7 +449,7 @@ func _complete() -> void:
 	if profile.data.banked.has(run_id):bank_pending=false;_show_result();return
 	result_award=profile.bank(run_id,model.board,model.stars(),model.assisted,daily,_today())
 	if result_award.get("ok",false):
-		bank_pending=false;_sound("arrival");_sync_services();services.round_finished();_show_result()
+		bank_pending=false;_sound("arrival");_sync_services();services.round_finished(int(profile.data.clears));_show_result()
 	else:
 		bank_pending=true;_toast("Delivery reached home, but storage could not save its award. Nothing was banked. Retry save to continue.");_gate_ui();_update_game()
 
@@ -453,7 +470,7 @@ func _show_result() -> void:
 		card.add_child(_paragraph("Dispatcher level %d! An extra %d brass from the lantern post."%[int(result_award.level_to),int(result_award.level_bonus)],30,GOLD))
 	_hero(column,board_index,260);yard.sync_snapshot(final_state)
 	var row:=HBoxContainer.new();column.add_child(row)
-	if not daily and board_index<47:row.add_child(_button("Next yard",_start_board.bind(board_index+1,false)))
+	if not daily and board_index<content.boards.size()-1:row.add_child(_button("Next yard",_start_board.bind(board_index+1,false)))
 	else:row.add_child(_button("Daily freight",_show_daily))
 	row.add_child(_button("Replay",_start_board.bind(board_index,daily)))
 	column.add_child(_button("Valley timetable",_show_campaign))
@@ -483,7 +500,7 @@ func _hint_callback(earned: bool,token: int,owner: String) -> void:
 	if earned:
 		model.assisted=true
 		var hints: Array[String]=[]
-		for key in model.board.solution:hints.append(str(key).trim_prefix("P")+(" A" if int(model.board.solution[key])==0 else " B"))
+		for key in model.board.solution:hints.append(str(key).trim_prefix("P")+" "+Rail.choice_label(model.board,str(key),int(model.board.solution[key])))
 		hinted_text="Suggested points: "+"  ·  ".join(hints)
 		_toast(hinted_text);_save_draft()
 	else:_toast("No hint earned. Ordinary planning, Preview and Undo remain free.")
@@ -514,7 +531,7 @@ func _update_game() -> void:
 	status_label.text=model.message+("  •  Assisted" if model.assisted else "")
 	if hinted_text!="" and not is_dispatching:status_label.text=hinted_text
 	for key in point_buttons:
-		var button: Button=point_buttons[key];button.text=str(key).trim_prefix("P")+" "+("A" if int(model.points[key])==0 else "B");button.disabled=_blocked() or is_dispatching or step_animating or not pending_event.is_empty() or model.status in ["won","failed"]
+		var button: Button=point_buttons[key];button.text=str(key).trim_prefix("P")+" "+Rail.choice_label(model.board,str(key),int(model.points[key]));button.disabled=_blocked() or is_dispatching or step_animating or not pending_event.is_empty() or model.status in ["won","failed"]
 	dispatch_button.text="Pause" if is_dispatching else ("Dispatch" if model.steps==0 else "Resume")
 	dispatch_button.disabled=_blocked() or step_animating or (model.status in ["won","failed"] and pending_event.is_empty())
 	step_button.disabled=_blocked() or is_dispatching or step_animating or not pending_event.is_empty() or model.status in ["won","failed"]
@@ -540,7 +557,7 @@ func _process(delta: float) -> void:
 			elif is_dispatching:_advance()
 	_gate_ui()
 	auto_clock+=delta
-	if auto_clock>30.0:auto_clock=0.0;profile.rollover(_today())
+	if auto_clock>30.0:auto_clock=0.0;profile.rollover(_today());profile.refresh_energy();profile.save();_wallet()
 
 func _notification(what: int) -> void:
 	if what==NOTIFICATION_WM_GO_BACK_REQUEST:_back()
@@ -609,3 +626,22 @@ func _shutdown() -> void:
 
 func _exit_tree() -> void:
 	_shutdown()
+
+
+func _request_energy() -> void:
+	if _blocked() or not services.can_reward():return
+	var serial: int=profile.issue_energy_reward()
+	if serial==0:_toast("Could not save the refill request. Check device storage.");return
+	request_token+=1
+	var token: int=request_token
+	reward_pending=true;ad_resume_gate=true;_gate_ui()
+	services.reward_requested("energy_refill",_energy_callback.bind(token,serial))
+
+func _energy_callback(earned: bool,token: int,serial: int) -> void:
+	if settled_tokens.has(token):return
+	settled_tokens[token]=true
+	if token!=request_token or scene_page!="home":return
+	reward_pending=false;ad_resume_gate=true
+	var granted: bool=profile.settle_energy_reward(serial,earned)
+	_wallet();_gate_ui()
+	_toast("Energy restored to full. Resume when ready." if granted else "No energy granted. Ordinary timed recharge continues.")

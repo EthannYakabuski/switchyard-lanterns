@@ -1,6 +1,7 @@
 class_name YardDiorama
 extends SubViewportContainer
 signal point_requested(key: String)
+const Rail = preload("res://game/rail_model.gd")
 ## Actual licensed train/scenery scenes, fitted to the live UI rectangle.
 var view: SubViewport
 var world: Node3D
@@ -235,7 +236,7 @@ func _yard_prop(node_data: Dictionary) -> void:
 			_label(str(cargo_types[cargo].name).to_upper(),pos+Vector3(0,2.2,0),Color(str(cargo_types[cargo].color)),32)
 		"junction":
 			var lamp:=_lantern(pos+Vector3(0.85,0,0),true);point_lamps[str(node_data.id)]=lamp
-			_label(str(node_data.id).trim_prefix("P")+" A",pos+Vector3(0,2.35,0),accent,44).name="Label_"+str(node_data.id)
+			_label(str(node_data.id).trim_prefix("P")+" L",pos+Vector3(0,2.35,0),accent,44).name="Label_"+str(node_data.id)
 			_box(world,Vector3(1.4,0.04,1.0),pos+Vector3(0,-0.03,0),Color("826f55"))
 		"start":
 			_label("ENGINE SHED",pos+Vector3(0,2.4,-1.4),Color("e9c38a"),34)
@@ -249,7 +250,7 @@ func _yard_prop(node_data: Dictionary) -> void:
 func set_points(points: Dictionary) -> void:
 	for key in points:
 		var label: Label3D=world.get_node_or_null("Label_"+str(key)) as Label3D
-		if label!=null:label.text=str(key).trim_prefix("P")+(" A" if int(points[key])==0 else " B")
+		if label!=null:label.text=str(key).trim_prefix("P")+" "+Rail.choice_label(board,str(key),int(points[key]))
 
 func apply_livery(index: int) -> void:
 	if not is_instance_valid(engine):return

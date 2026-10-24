@@ -156,9 +156,9 @@
     {
       "key": "all_yards",
       "title": "Every Light Is Home",
-      "description": "Complete all 48 authored campaign yards.",
+      "description": "Complete all 100 authored campaign yards.",
       "metric": "campaign_cleared",
-      "target": 48,
+      "target": 100,
       "icon": "marketing/achievements/all_yards.png"
     }
   ],

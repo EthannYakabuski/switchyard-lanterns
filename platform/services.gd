@@ -270,9 +270,9 @@ func _interstitial_load_failed(error: LoadAdError, ticket: int) -> void:
 	if not _ads_shutting_down:
 		_set_notice("Interstitial unavailable: " + error.message)
 
-func round_finished() -> void:
-	_round_count += 1
-	if _round_count % 2 != 0 or _interstitial_showing or _reward_showing:
+func round_finished(completed_count: int=-1) -> void:
+	_round_count = completed_count if completed_count>=0 else _round_count+1
+	if _round_count % 5 != 0 or _interstitial_showing or _reward_showing:
 		return
 	if is_instance_valid(_interstitial):
 		_interstitial_showing = true

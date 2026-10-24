@@ -9,6 +9,13 @@ class FaultProfile:
 	var refuse_writes:=true
 	func save() -> bool:return false if refuse_writes else super.save()
 
+class FirstWriteProfile:
+	extends "res://game/profile.gd"
+	var writes:=0
+	func save() -> bool:
+		writes+=1
+		return super.save() if writes==1 else false
+
 class FixtureServices:
 	extends Node
 	signal menu_bottom_reserve_changed
@@ -26,7 +33,7 @@ class FixtureServices:
 	func fullscreen_ad_active() -> bool:return fullscreen
 	func can_reward() -> bool:return true
 	func reward_requested(_context: String,receiver: Callable) -> void:callback=receiver
-	func round_finished() -> void:finished+=1
+	func round_finished(_completed_count: int=-1) -> void:finished+=1
 	func unlock(_key: String) -> void:pass
 	func submit(key: String,score: int) -> void:scores[key]=score
 	func sign_in() -> void:signins+=1
@@ -65,6 +72,17 @@ func run() -> void:
 	var app: Control=MainScene.instantiate();root.add_child(app)
 	await process_frame;await process_frame
 	require(app.scene_page=="home","real scene opens home")
+	require(app.home_backdrop.visible and app.home_backdrop.texture!=null,"illustrated Home background is present")
+	app.profile.data.energy=0;app.profile.save()
+	app._request_energy();var refill: Callable=service.callback
+	require(app.reward_pending and app._blocked(),"energy native pending freezes menu")
+	service.fullscreen=true;refill.call(true)
+	require(app.profile.data.energy==12 and app._blocked(),"energy earned stays gated behind endcard")
+	app.profile.data.energy=9;app.profile.save();refill.call(true)
+	require(app.profile.data.energy==9,"duplicate energy callback grants nothing")
+	service.fullscreen=false;app._process(0.1);app._resume_gate()
+	app.profile.data.energy=12;app.profile.save()
+
 	var back: Button=app.header.get_node("BackButton") as Button
 	require(back.size.x>=112.0 and back.size.x<=130.0,"Back retains a touch target without expanding across the header")
 	app._notification(MainLoop.NOTIFICATION_APPLICATION_PAUSED);app._notification(MainLoop.NOTIFICATION_APPLICATION_RESUMED);app._process(0.1)
@@ -76,6 +94,13 @@ func run() -> void:
 	app._start_board(0,false);await process_frame;await process_frame
 	require(app.yard.engine!=null and app.yard.cargo_models.size()==1,"actual train and freight scene present")
 	require(app.point_buttons.size()==1,"large mirrored point control")
+	require(app.point_buttons.P1.text.ends_with("L"),"point chip uses observer L label")
+	var ticket_before: int=int(app.profile.data.next_run)
+	var energy_before: int=int(app.profile.data.energy)
+	app.model.assisted=true;app._reset();await process_frame;await process_frame
+	require(app.profile.data.next_run==ticket_before and app.profile.data.energy==energy_before and app.model.assisted,"Reset reuses paid ticket and preserves earned assistance")
+	app.model.assisted=false
+
 	var a_screen: Vector2=app.yard.camera.unproject_position(app.yard.node_positions.P1A)
 	var b_screen: Vector2=app.yard.camera.unproject_position(app.yard.node_positions.P1B)
 	require(a_screen.x<b_screen.x,"A really appears left of B in the live camera")
@@ -154,6 +179,22 @@ func run() -> void:
 	fault.refuse_writes=false;app.retry_save_button.pressed.emit()
 	require(app.scene_page=="result" and not app.bank_pending and int(app.profile.data.clears)==2 and service.finished==2,"Retry save durably banks exactly once")
 	fault=null
+	app._start_board(99,false);await process_frame;await process_frame
+	require(app.point_buttons.size()==11 and app.manifest_chips.size()>6,"final yard presents its real eleven choices and long manifest")
+	var point_scroll: ScrollContainer=app.point_buttons.P1.get_parent().get_parent() as ScrollContainer
+	require(point_scroll!=null and point_scroll.get_h_scroll_bar().max_value>point_scroll.get_h_scroll_bar().page,"long turnout row scrolls rather than clipping inaccessible controls")
+	require(point_scroll.size.y>=128 and app.yard.size.y>=300,"scrollbar and positive playable yard retain their space")
+	for key in app.point_buttons:
+		require(app.point_buttons[key].text.ends_with(app.Rail.choice_label(app.model.board,str(key),int(app.model.points[key]))),"live final-yard observer label "+str(key))
+	var single:=FirstWriteProfile.new();single.data=app.profile.data.duplicate(true);app.profile=single
+	app._start_board(98,false);await process_frame
+	require(single.writes==1 and app.model.board.id=="yard_99" and single.data.draft.index==98,"initial paid ticket and resumable draft require exactly one atomic write")
+	var cold_ticket: RailwayProfile=app.Profile.new();cold_ticket.load_file()
+	require(cold_ticket.data.draft.run_id==app.run_id and cold_ticket.data.draft.state.board=="yard_99" and cold_ticket.data.energy==single.data.energy,"cold profile has charged ticket and new route together")
+	var before_failed: Dictionary=single.data.duplicate(true)
+	app._start_board(97,false);await process_frame
+	require(single.data==before_failed and app.model.board.id=="yard_99" and app.notice.visible,"failed next ticket leaves prior paid route and energy intact with visible error")
+	single=null;cold_ticket=null
 	await _dispose_app(app)
 	service.queue_free();service=null;app=null;actual=null
 	await process_frame

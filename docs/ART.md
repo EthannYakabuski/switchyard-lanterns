@@ -50,7 +50,7 @@ All individual full-size outputs and labeled 512, 100 and 64 pixel review sheets
 | daily_seven | Seven Days of Freight | Complete Daily Dispatches on seven different dates. | [marketing/achievements/daily_seven.png](../marketing/achievements/daily_seven.png) | 36317CAE1E02A206470AE87D971579FD208CDE61B6BAC96CCC2696C077C41D06 |
 | level_five | Lantern Warden | Reach dispatcher level 5. | [marketing/achievements/level_five.png](../marketing/achievements/level_five.png) | D04B693A8AE3A46F08DDCD5EED30C972B42A6D6916DF0C5B45D63E6F1DCCF3B7 |
 | level_ten | Valley Steward | Reach dispatcher level 10. | [marketing/achievements/level_ten.png](../marketing/achievements/level_ten.png) | 259C13367289933584B378BFF25C0EE586FC84B9427A541FDFD685DA9FDF4904 |
-| all_yards | Every Light Is Home | Complete all 48 authored campaign yards. | [marketing/achievements/all_yards.png](../marketing/achievements/all_yards.png) | 7F9698015012684F1969AB981CD2953681F8B3146EDE7A7C1202BF93E45342D1 |
+| all_yards | Every Light Is Home | Complete all 100 authored campaign yards. | [marketing/achievements/all_yards.png](../marketing/achievements/all_yards.png) | 7F9698015012684F1969AB981CD2953681F8B3146EDE7A7C1202BF93E45342D1 |
 | campaign_stars | Lantern Mastery | Highest total of unassisted campaign mastery stars. | [marketing/leaderboards/campaign_stars.png](../marketing/leaderboards/campaign_stars.png) | 4440D5639B36E114F525C60596F5A03601EAB8EDB54136D9B95973857110C45D |
 | dispatches | Valley Dispatches | Total genuine completed dispatches. | [marketing/leaderboards/dispatches.png](../marketing/leaderboards/dispatches.png) | CF1F067E8E2B25980505174457170ED4E4C0D89E24620C89635C0B8A715D6BDB |
 | dispatcher_xp | Dispatcher Experience | Lifetime dispatcher experience earned through play. | [marketing/leaderboards/dispatcher_xp.png](../marketing/leaderboards/dispatcher_xp.png) | 55F2157294BC1207F12B7F547FE079024E9296AE4ACC6BCD95622259F4490954 |
@@ -167,3 +167,14 @@ The public [runtime art manifest](../assets/art/manifest.json) records exact sou
 ### Exact runtime cargo sheet prompt
 
 Use case: stylized-concept. Asset: one production sprite sheet of four distinct runtime cargo icons for the cozy 3D railway puzzle Switchyard Lanterns, square 1024x1024 PNG with a TRUE transparent alpha background. Fixed precise 2-column by2-row equal-cell layout. Every cell contains exactly one independent centered illustrated object; generous transparent gap and at least18percent empty margin within EACH cell. Objects must never touch cell boundaries or each other. Reading order: TOP LEFT one sturdy coral-red wooden parcel crate with visible planks and small warm brass corner fittings; TOP RIGHT one soft midnight-blue postal bag with a clear cream envelope tucked into its front, no letters or stamps with text; BOTTOM LEFT exactly three chunky golden timber logs bound together by one deep-green strap, visible round log end grain; BOTTOM RIGHT one compact ochre-gold water tank/canister with a large clear blue teardrop emblem embossed into its front. These are cargo objects, not trains or wagons. Match a warm amber/indigo railway brand through object materials and restrained brass highlights. Premium softly illustrated toy-like 3D rendering, simple bold silhouettes and broad readable forms that remain immediately recognizable at64pixels; rich but restrained painted wood, cloth, timber and metal textures. Consistent three-quarter front perspective and soft upper-left object lighting. All shading stays INSIDE each object silhouette. Completely transparent pixels outside objects, no ground plane, no cast shadows, no haze or glow outside silhouettes. No text, letters, numbers, logo, badge, tile, frame, UI, border, background or contact-sheet labels. Do not put a checkerboard pattern into the image; use real transparent alpha.
+
+
+## Round Four Home background
+
+`assets/art/menu-valley-r4.png` is a new built-in image_gen illustration, 1024x1536,
+SHA256 `BB98D83728066B8766AF280C54EA799A0EDF739E6F8CD110DF63DBBFB640BFBC`.
+Prompt: painterly amber lantern-lit valley railway at indigo dusk, a little blue
+locomotive, timber freight, welcoming country station, misty pine hills; portrait
+quiet dark sky behind readable menu controls; no text/UI/watermark. The generated
+output was visually inspected and copied without semantic image edits. It is
+menu branding, never a gameplay screenshot. Original feature/icon art remains.
