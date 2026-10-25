@@ -549,7 +549,11 @@ func _process(delta: float) -> void:
 	elif seen_fullscreen:
 		seen_fullscreen=false;ad_resume_gate=true;_gate_ui()
 	var allowed: bool=not _blocked()
-	if is_instance_valid(music):music.stream_paused=not allowed
+	if is_instance_valid(music):
+		var pause_music: bool = not allowed
+		# Web samples restart their buffer on redundant unpause calls.
+		if music.stream_paused != pause_music:
+			music.stream_paused = pause_music
 	if scene_page=="game" and model!=null and is_instance_valid(yard):
 		if allowed and (is_dispatching or step_animating):
 			if not pending_event.is_empty():
