@@ -4,9 +4,9 @@
 
 The Android preset now defaults to **AAB** with Gradle, minimum API **24** and target API **35**. ARM64, x86 and x86_64 are selected; the [Round 4 Android guide](docs/ROUND_FOUR_ANDROID.md) explains the native ABI-pair validator and release-owner steps. These are current preset choices, not permanent engine restrictions.
 
-Round 4 exact-source hosted CI and affected native acceptance are pending in this dated continuation snapshot; consult `HANDOFF.txt` for later source-bound results. An ABI-validated debug AAB is test-signed and does not establish Google Play acceptance. Dated APK hashes and screenshots below retain their original build provenance. This round does not start new games.
+Focused music pause-state source `1c00d2b892bebf916c5e1400d7ecad69440dfb24` is public and its [exact-commit hosted CI](https://github.com/EthannYakabuski/switchyard-lanterns/actions/runs/40146600612) passed. Accepted local Android/Web components, the qualified test package and bounded Web003 review are recorded in `HANDOFF.txt`; affected native acceptance remains unverified. An ABI-validated debug AAB is test-signed and does not establish Google Play acceptance. Dated APK hashes and screenshots below retain their original build provenance. This round does not start new games.
 
-**Round Four source:** [100-yard campaign, observer L/R, energy and advertising rules](docs/ROUND_FOUR.md). Source tests do not replace the pending affected native/build validation.
+**Round Four source:** [100-yard campaign, observer L/R, energy and advertising rules](docs/ROUND_FOUR.md). Source tests are separate from export checks and affected native validation; current results are recorded in HANDOFF.txt.
 
 A cozy 3D freight-routing puzzle made with Godot 4.5.1 Compatibility. Set the
 points, collect each manifest in order, and bring the little train home through
@@ -14,8 +14,8 @@ lantern-lit valley yards.
 
 **Development status:** Round Four source tests verify all 100 solutions,
 energy/save/callback rules and affected scene layout. Fresh Round Four native
-gameplay, screenshots where visuals changed, build packages and exact-commit
-hosted CI remain delivery gates. The earlier qualified cleanup/source delivery
+gameplay and screenshots where visuals changed remain unverified; the latest
+source CI and corrected export/runtime qualifications are recorded in `HANDOFF.txt`. The earlier qualified cleanup/source delivery
 was published at `d68547fe` and exact CI
 [39922117656](https://github.com/EthannYakabuski/switchyard-lanterns/actions/runs/39922117656)
 passed; that run does not validate this later gameplay update.

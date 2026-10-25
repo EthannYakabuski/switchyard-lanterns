@@ -1,3 +1,29 @@
+ROUND FOUR - QUALIFIED SOURCE / EXPORT HANDOFF
+Current Round Four features: 100 authored yards across thirteen districts use observer L/R points. A new yard ticket costs 2 energy; Pause/Step/Undo/Reset within that paid ticket remain free.
+The focused music pause-state follow-up leaves music enabled and avoids redundant pause-state updates.
+Current focused source: 1c00d2b892bebf916c5e1400d7ecad69440dfb24
+Exact post-audio source CI: SUCCESS - https://github.com/EthannYakabuski/switchyard-lanterns/actions/runs/40146600612
+Latest validated Android AAB: build/round-four-music-aab-003/switchyard-lanterns-debug.aab
+AAB SHA256: D68EF58F4DCE949DBD2BC38734758B83E0C4DA054C5A744DED48155E3B8A1855
+AAB as-built source: 1c00d2b892bebf916c5e1400d7ecad69440dfb24
+Latest validated Web entry: build/round-four-web-003/index.html
+Web HTML SHA256: 87B64A5039D1D3CC9F0EB6479BCDEA05A40D6BEBC7F1E4E376FF5E1E4BCC3145
+Web as-built source: 1c00d2b892bebf916c5e1400d7ecad69440dfb24
+Corrected Web runtime scope and remaining diagnostics: Bounded isolated Chrome Web003 observations: Campaign and the first yard opened. The point control toggled observer-left/right; free Reset restored the opening points without spending more energy. Home/Continue restored the same draft without another energy charge. Real Dispatch completed the first yard with three stars, one wagon, +50 brass, +30 XP and +1 energy. No createBuffer recurrence was recorded during the 361-second check. Full original audio and project playback configuration were retained.
+Remaining browser and platform limits: Only the first yard was completed; all 100 boards and 13 districts were not played. Missing symbol glyphs remain in locked-star text/toasts; the principal controls and result stars were readable. Headless tab changes kept both pages visible and focused; actual hidden/focus-loss and music pause/resume transitions remain unverified. These are bounded Chrome Web003 observations, not Android screenshots or native/device, audible-output, SDK/ad, production-service or release acceptance. No cold browser restart was tested.
+Qualified Android/Web test package: build/round-four-music-1c00d2b8-aab003-web003/packages/switchyard-lanterns-round-four-audio-export-test.zip
+Package SHA256: EE536223CB8E3D7E09B1D1C193A4E399855E89BF71A45ECEA53A94036B8F48E0
+The AAB and Web exports above passed their recorded export checks. Bounded Web observations and outstanding owner checks remain separate. Source CI above validates the as-built code; later documentation/UID-only commits require their own hosted run.
+RECORDED PRIOR ROUND FOUR EXPORT CANDIDATE - PRE-AUDIO SOURCE
+AAB: build/round-four-aab-001/switchyard-lanterns-debug.aab; SHA256 4DAE24D70B038F33028FF9257701183036371BABC567AAF07D705C942035C646; as-built source 74e7266e1b86b9454a7407a47f6151fcf155b5e0.
+Web: build/round-four-web-002/index.html; HTML SHA256 061E9D3384507FECAF340A7D6D047FF3E1EC4484619FA29917DFBFBDA912D890; as-built source 565660336798398ca1f78fb61801c9f9db75af24.
+Recorded export-only ZIP: build/round-four-export-only-4dae24d7-web002/packages/switchyard-lanterns-round-four-export-test.zip; SHA256 5CEAC1F30C563563B095FA73D999AE886238D0BCF384D62BC65E3ED5E3B11633. These frozen pre-audio component identities are preserved as dated evidence, not validation of the newer source or a promise that an archive remains selected for distribution.
+NATIVE / OWNER QUALIFICATION
+Affected Round Four Android/native behavior and current-build Android screenshots remain unverified. Browser frames are not Android/store screenshots. Physical-device, audible-output, real SDK/production-service and store-release acceptance remain separate; a debug AAB is test-signed, not a release submission.
+Only materially changed visuals require refreshed genuine captures. Unchanged older screenshots retain their named original APK/source provenance and are not relabelled as current-build evidence.
+Remaining owner checks: affected Android/native gameplay and real SDK/ad callback/save/offline flows on the new binary, materially changed genuine current-build Android captures, intended physical devices, audible output and production services. The specific unverified gameplay/control paths in the browser limits above remain open; no all-native-ready claim is made.
+
+PRESERVED EARLIER HANDOFF / DATED EVIDENCE — each passage retains its named source/build scope; current qualification above supersedes earlier readiness statements.
 SWITCHYARD LANTERNS - NATIVE-PENDING TEST BUILD
 Status: QUALIFIED LOCAL TEST BUILD. Normal SDK cleanup/save exit is verified; the separate EGL shutdown qualification remains. The full native strict-log gate is NOT clean. Publication/exact-source CI and owner/device acceptance remain pending; this is not final native-ready status.
 

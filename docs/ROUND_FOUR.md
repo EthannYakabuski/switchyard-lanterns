@@ -60,3 +60,12 @@ Existing accepted screenshots and APKs retain their original older provenance.
 Physical-device, audible output, interactive Web, production services and
 store-release acceptance require their own evidence. Existing strict native-log
 qualifications are not cleared by these source tests.
+
+## Focused music pause-state follow-up / qualified verification
+
+Music remains enabled. The focused follow-up avoids redundant pause-state assignments while leaving the gameplay and service rules above intact. Its source is `1c00d2b892bebf916c5e1400d7ecad69440dfb24`; its [exact hosted CI](https://github.com/EthannYakabuski/switchyard-lanterns/actions/runs/40146600612) passed. The actual accepted AAB/Web003 components and qualified test package are recorded in `../HANDOFF.txt`. Earlier named-source tests and frozen exports do not establish this follow-up's runtime acceptance.
+
+Corrected Web runtime findings: Bounded isolated Chrome Web003 observations: Campaign and the first yard opened. The point control toggled observer-left/right; free Reset restored the opening points without spending more energy. Home/Continue restored the same draft without another energy charge. Real Dispatch completed the first yard with three stars, one wagon, +50 brass, +30 XP and +1 energy. No createBuffer recurrence was recorded during the 361-second check. Full original audio and project playback configuration were retained.
+Remaining browser and platform limits: Only the first yard was completed; all 100 boards and 13 districts were not played. Missing symbol glyphs remain in locked-star text/toasts; the principal controls and result stars were readable. Headless tab changes kept both pages visible and focused; actual hidden/focus-loss and music pause/resume transitions remain unverified. These are bounded Chrome Web003 observations, not Android screenshots or native/device, audible-output, SDK/ad, production-service or release acceptance. No cold browser restart was tested.
+
+Affected Android/native checks, real SDK callbacks and current-build Android screenshots remain unverified. Physical-device play, audible-output and production services are separate acceptance work. Preserve all old APK/capture provenance and full third-party notices.
