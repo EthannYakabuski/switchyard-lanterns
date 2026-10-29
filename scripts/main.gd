@@ -211,7 +211,7 @@ func _show_home() -> void:
 	head.add_child(_paragraph("Untimed railway puzzles. Every wagon in its place.",25))
 	var valley_space:=Control.new();valley_space.custom_minimum_size.y=200;valley_space.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(valley_space)
 	var buttons:=VBoxContainer.new();column.add_child(buttons)
-	var energy:=_panel(buttons,PANEL,12);energy.add_child(_paragraph("2 energy per new yard. +1 per delivery, +3 per level. Restore 1 every 5 minutes, including while away. Continue, Undo and Reset are free.",24))
+	var energy:=_panel(buttons,PANEL,12);energy.add_child(_paragraph("2 energy per new yard. +3 per new level or +1 every 10 minutes (also offline). No completion refund. Earned ads refill. Continue, Undo and Reset are free.",24))
 	energy_button=_button("Refill energy (ad)",_request_energy);energy_button.disabled=not services.can_reward();energy.add_child(energy_button)
 	if not profile.data.draft.is_empty():
 		var continue_row:=HBoxContainer.new();buttons.add_child(continue_row);continue_row.add_child(_button("Continue route",_continue_route));continue_row.add_child(_button("Campaign - 100 yards",_show_campaign))

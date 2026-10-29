@@ -5,7 +5,7 @@ const SAVE := "user://railway_v1.json"
 const LEVEL_GIFT := 25
 const ENERGY_MAX := 12
 const ENERGY_COST := 2
-const ENERGY_SECONDS := 300
+const ENERGY_SECONDS := 600
 const BOARD_COUNT := 100
 const ENERGY_FIELDS := ["energy","energy_time","energy_issued","energy_settled"]
 var data: Dictionary = {}
@@ -179,7 +179,6 @@ func bank(run_id: String, board: Dictionary, stars: int, assisted: bool, daily: 
 	var earned_xp: int = 12+board.manifest.size()*3+(15 if first else 0)
 	data.coins=int(data.coins)+earned_coins
 	var levels: Dictionary=_earn_xp(earned_xp)
-	add_energy(1)
 	data.clears=int(data.clears)+1;data.cargo_total=int(data.cargo_total)+board.manifest.size()
 	data.largest_manifest=maxi(int(data.largest_manifest),board.manifest.size())
 	if day == str(data.day):data.day_clears=int(data.day_clears)+1

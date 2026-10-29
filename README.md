@@ -1,5 +1,10 @@
 # Switchyard Lanterns
 
+## Round Five energy update
+
+Puzzle completion no longer refunds energy. New dispatcher levels still grant 3 energy, timed/offline recovery grants 1 per 10 minutes, and a native earned ad can refill to the existing 12-energy cap. New tickets still cost 2 energy; Continue, Undo and Reset remain free. Existing stored energy, awards and progress are preserved. See [the acceptance contract](docs/ROUND_FIVE.md).
+
+
 ## Round 4 build continuation (2026-10-24)
 
 The Android preset now defaults to **AAB** with Gradle, minimum API **24** and target API **35**. ARM64, x86 and x86_64 are selected; the [Round 4 Android guide](docs/ROUND_FOUR_ANDROID.md) explains the native ABI-pair validator and release-owner steps. These are current preset choices, not permanent engine restrictions.
@@ -35,8 +40,7 @@ diagnostic and physical/production acceptance remain qualified. See
   or its large bottom chip. Dispatch, Pause, Step, Preview, free Undo and Reset
   remain free within the same paid ticket. Signed bridges count already-coupled wagons.
   Train view provides a readable close view; Fit yard restores the whole route.
-- Saved energy (12 capacity, 2 per new ticket; 1 per five minutes offline, 1 per
-  completed puzzle and 3 per new level), repeatable native-earned full refills,
+- Saved energy (12 capacity, 2 per new ticket; 1 per ten minutes offline and 3 per new level), repeatable native-earned full refills,
   and an interstitial opportunity every fifth completion. Dispatcher XP with a 25-brass gift for every newly earned level, cosmetic
   engine liveries, campaign mastery, a curated Daily
   Dispatch, daily freight goals and a seven-day login post.

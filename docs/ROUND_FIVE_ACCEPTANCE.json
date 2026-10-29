@@ -1,0 +1,70 @@
+{
+  "date_utc": "2026-10-29",
+  "energy_interval_seconds": 600,
+  "completion_flat_refund": 0,
+  "allowed_sources": [
+    "real dispatcher level crossings:3 per level",
+    "elapsed/offline600-second intervals:1",
+    "once-only earned-ad full refill to12"
+  ],
+  "preserved": [
+    "stored energy and timestamps",
+    "coins/XP/records/daily claims",
+    "ticket costs and free existing-ticket retries",
+    "owner configuration and unrelated iOS files"
+  ],
+  "tests": [
+    {
+      "script": "IMPORT",
+      "exit_code": 0,
+      "strict_errors": [],
+      "result": "PASS"
+    },
+    {
+      "script": "tests/test_round_five.gd",
+      "exit_code": 0,
+      "strict_errors": [],
+      "result": "PASS"
+    },
+    {
+      "script": "tests/test_round_four.gd",
+      "exit_code": 0,
+      "strict_errors": [],
+      "result": "PASS"
+    },
+    {
+      "script": "tests/test_rail_model.gd",
+      "exit_code": 0,
+      "strict_errors": [],
+      "result": "PASS"
+    },
+    {
+      "script": "tests/test_ui.gd",
+      "exit_code": 0,
+      "strict_errors": [],
+      "result": "PASS"
+    },
+    {
+      "script": "tests/test_audio_assets.gd",
+      "exit_code": 0,
+      "strict_errors": [],
+      "result": "PASS"
+    },
+    {
+      "script": "tests/test_ad_load_lifetime.gd",
+      "exit_code": 0,
+      "strict_errors": [],
+      "result": "PASS"
+    },
+    {
+      "script": "platform/tests/services_smoke.gd",
+      "exit_code": 0,
+      "strict_errors": [],
+      "result": "PASS"
+    }
+  ],
+  "qualifications": [
+    "Isolated synthetic transactions and engine UI checks are not native rewarded-ad or gameplay proof.",
+    "Fresh native/device, audible and production backend acceptance remain separate."
+  ]
+}

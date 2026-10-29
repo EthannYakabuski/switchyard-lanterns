@@ -1,3 +1,10 @@
+ROUND FIVE LOCAL SOURCE CHECKS: PASS (2026-10-29)
+Godot4.5.1 import and strict diagnostics pass. RoundFive15, RoundFour581, rail model1149(all100solutions), UI69, audio29, ad-lifetime92 and service smoke pass. These are isolated source/engine checks; native earned-ad/device/audio acceptance remains separate. The containing commit needs its own hosted Android/Web export result.
+
+ROUND FIVE - ENERGY SOURCE UPDATE
+Updated 2026-10-29. Completion energy refunds removed; elapsed recovery is now one energy per ten minutes. Promotions and once-only earned-ad refills remain allowed. Existing stored energy and rewards are not reset. See docs/ROUND_FIVE.md. Source/CI checks do not establish native earned-ad or device acceptance; prior binaries retain only their original provenance.
+
+PRESERVED EARLIER HANDOFF
 ROUND FOUR - QUALIFIED SOURCE / EXPORT HANDOFF
 Current Round Four features: 100 authored yards across thirteen districts use observer L/R points. A new yard ticket costs 2 energy; Pause/Step/Undo/Reset within that paid ticket remain free.
 The focused music pause-state follow-up leaves music enabled and avoids redundant pause-state updates.
