@@ -1,0 +1,26 @@
+{
+  "game": "Switchyard Lanterns",
+  "slug": "switchyard-lanterns",
+  "points": {
+    "first_dispatch": 10,
+    "full_consist": 20,
+    "pine_certified": 20,
+    "orchard_certified": 25,
+    "canal_certified": 30,
+    "quarry_certified": 35,
+    "midnight_certified": 40,
+    "grand_certified": 45,
+    "clean_first": 20,
+    "clean_five": 40,
+    "clean_twenty": 75,
+    "cargo_25": 25,
+    "cargo_100": 50,
+    "dispatch_25": 40,
+    "dispatch_100": 75,
+    "daily_first": 10,
+    "daily_seven": 50,
+    "level_five": 30,
+    "level_ten": 60,
+    "all_yards": 100
+  }
+}

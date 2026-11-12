@@ -1,0 +1,20 @@
+{
+  "game": "Switchyard Lanterns",
+  "achievement_count": 20,
+  "archive_entries": 22,
+  "total_points": 800,
+  "all_standard": true,
+  "all_revealed": true,
+  "zip": "switchyard-lanterns-achievements-google-play.zip",
+  "zip_bytes": 11908861,
+  "zip_sha256": "4a431c07b9a0f75bbbfe1ce88a91ad214063b7af136c64d024a93ebda61cc64f",
+  "catalog_canonical_json_sha256": "90802846a8e390608f6a16add1ce4a4ca2cfbe9747d458d7475f33d76def2169",
+  "icon_dimensions": "512x512",
+  "members_under_1000000_bytes": true,
+  "flat_archive": true,
+  "csv_headers": false,
+  "zip_crc_and_source_bytes": "PASS",
+  "console_import_tested": false,
+  "production_ids_configured": false,
+  "schema": "https://developer.android.com/games/pgs/integrate-achievements#zip-file-guidelines"
+}
